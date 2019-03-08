@@ -1,0 +1,15 @@
+{
+  "name": "solvio_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bullet-catcher": "^1.0.27",
+    "gun": "^0.9.9999991"
+  }
+}
