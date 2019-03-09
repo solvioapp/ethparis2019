@@ -1,6 +1,8 @@
 // Import react
 import React from 'react'
 
+import '../styles/Logo.scss'
+
 // Define a menu rendering component that takes props
 export const PanelView = ( { children, visible, toggle, name, logo, action } ) => {
 	// Fill the <nav><ul> element with the above <li>'s

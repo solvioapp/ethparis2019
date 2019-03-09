@@ -1,6 +1,19 @@
 require('gun/lib/open.js')
 require('gun/lib/then.js')
+const _ = require('underscore')
 const db = require('./db')
+
+function toResponse(obj) {
+    return _.omit(obj, (_, key, _) => { return key == '_' })
+}
+
+async function hydrate(gun, node, property) {    
+    let value = await gun.get(node[property]['#']).then()        
+    console.log(value)
+    let response = toResponse(value)
+    console.log(response)
+    node[property] = response
+}
 
 module.exports.getTopics = async (req, res, next) => {
     topics = await req.gun.get('topics').once().then()
@@ -19,18 +32,26 @@ module.exports.getTopics = async (req, res, next) => {
     res.send(result)
 }
 
-module.exports.getResource = (req, res, next) => {
-    const resource_id = req.params['resourceId']
+module.exports.getResource = async (req, res, next) => {
+    const resource_id = req.params['resource_id']
     if (!resource_id) return res.status(400).send({'message': 'Invalid resource ID'})
+
+    const resource = await req.gun.get(resource_id).then()    
     
-    req.gun.get(resource_id).open(function (data) {        
+    await hydrate(req.gun, resource, 'topic')    
+
+    res.send(toResponse(resource))
+
+    /*
+    (function (data) {        
         if (!data) return res.status(404).send()
         res.send(data)
     })
+    */
 }
 
 module.exports.getReviews = async (req, res, next) => {    
-    const resource_id = req.params['resourceId']
+    const resource_id = req.params['resource_id']
     if (!resource_id) return res.status(400).send({'message': 'Invalid resource ID'})
     
     reviews = await req.gun.get(resource_id).get('reviews').then()
@@ -68,14 +89,22 @@ module.exports.postResource = async (req, res, next) => {
 }
 
 module.exports.postReview = async (req, res, next) => {
-    const review_id = req.params['review_id']
-    const resource_id = req.params['resource_id']    
-    const quality = req.params['quality']
-    const length = req.params['length']
-    const dependencies = req.params['dependencies']
-    const content = req.params['content']    
-    
+    const resource_id = req.params['resource_id']
+    const review_id = req.params['review_id']    
+
+    const quality = req.body['quality']
+    const length = req.body['length']
+    const dependencies = req.body['dependencies']
+    const content = req.body['content']
+
+    if (!quality) return res.status(400).send({'message': 'Missing quality'})
+    if (!length) return res.status(400).send({'message': 'Missing length'})
+    if (!dependencies) return res.status(400).send({'message': 'Missing dependencies'})
+    if (!content) return res.status(400).send({'message': 'Missing content'})
+
     db.addReview2Resource(review_id, resource_id, quality, length, dependencies, content)
 
-    res.send(204)
+    res.sendStatus(204)
 }
+
+

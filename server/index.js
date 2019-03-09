@@ -2,6 +2,7 @@ require('bullet-catcher')
 
 const Gun = require('gun')
 const express = require('express')
+const cors = require('cors')
 const routes = require('./routes')
 const app = express()
 const bodyParser = require('body-parser')
@@ -25,6 +26,8 @@ const server = require('http').createServer((req, res) => {
   
 
 app.use(Gun.serve)
+
+app.use(cors())
 
 
 const port = process.env.PORT || 8090
@@ -56,6 +59,6 @@ app.get('/topics', routes.getTopics)
 app.get('/resources/:resource_id', routes.getResource)
 app.get('/resources/:resource_id/reviews', routes.getReviews)
 app.post('/resources', routes.postResource)
-app.post('/resources/:resource_id/reviews', routes.postReview)
+app.post('/resources/:resource_id/reviews/:review_id', routes.postReview)
 
 console.log('listening on port ' + port);
