@@ -34,10 +34,10 @@ class App extends React.Component<any,any> {
 						title = "Solvio Learn"
 					/>
 				</header>
-				<Main>
+				<MainView>
 					<Search updateQuery={(query: any) => this.updateQuery(query)}/>
 					<Dropdown />
-				</Main>
+				</MainView>
 				<Footer />
 			</div>
 		)
