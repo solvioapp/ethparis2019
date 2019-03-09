@@ -36,25 +36,49 @@ module.exports.getTopics = async (req, res, next) => {
     res.send(result)
 }
 
+async function hydrateResource(gun, resource) {
+    await hydrate(gun, resource, 'topic')
+    await hydrateSet(gun, resource, 'reviews')
+
+    for (review_id in resource['reviews']) {
+        await hydrateSet(gun, resource['reviews'][review_id], 'dependencies')
+        for (dependency_id in resource['reviews'][review_id]['dependencies']) {
+            await hydrate(gun, resource['reviews'][review_id]['dependencies'][dependency_id], 'topic')
+        }
+    }
+}
+
 module.exports.getResource = async (req, res, next) => {
     const resource_id = req.params['resource_id']
     if (!resource_id) return res.status(400).send({'message': 'Invalid resource ID'})
 
     let resource = await req.gun.get(resource_id).then()
-    if (!resource) return res.sendStatus(404)
+    if (!resource) return res.sendStatus(404)    
 
     resource = toResponse(resource)
-    await hydrate(req.gun, resource, 'topic')
-    await hydrateSet(req.gun, resource, 'reviews')
-
-    for (review_id in resource['reviews']) {
-        await hydrateSet(req.gun, resource['reviews'][review_id], 'dependencies')
-        for (dependency_id in resource['reviews'][review_id]['dependencies']) {
-            await hydrate(req.gun, resource['reviews'][review_id]['dependencies'][dependency_id], 'topic')
-        }
-    }
-
+    await hydrateResource(req.gun, resource)
     res.send(resource)
+}
+
+module.exports.getResources = async (req, res, next) => {
+    const topic_id = req.params['topic_id']
+    if (!topic_id) return res.status(400).send({'message': 'Missing topic ID'})
+
+    let topic = await req.gun.get(topic_id).once().then()
+    if (!topic) return res.sendStatus(404)
+
+    let resources = await req.gun.get('topics').get(topic_id).get('resources').once().then()
+
+    let result = []
+
+    resources = toResponse(resources)
+
+    for (i in resources) {        
+        await hydrate(req.gun, resources, i)
+        await hydrateResource(req.gun, resources[i])
+    }
+    
+    res.send(resources)
 }
 
 module.exports.getReviews = async (req, res, next) => {    
@@ -84,13 +108,13 @@ module.exports.getReviews = async (req, res, next) => {
 module.exports.postResource = async (req, res, next) => {    
     const topic = req.body['topic']
     const title = req.body['title']
-    const url = req.body['url']    
+    const url = req.body['url']
 
     if (!topic) return res.status(400).send({'message': 'Missing topic'})
     if (!title) return res.status(400).send({'message': 'Missing title'})
     if (!url) return res.status(400).send({'message': 'Missing url'})
 
-    resourceId = db.addResource2Topic(topic, title, url)
+    let resourceId = db.addResource2Topic(topic, title, url)
 
     res.status(200).send({'id': resourceId})
 }

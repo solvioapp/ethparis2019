@@ -61,5 +61,6 @@ app.get('/resources/:resource_id/reviews', routes.getReviews)
 app.post('/resources', routes.postResource)
 app.post('/resources/:resource_id/reviews/:review_id', routes.postReview)
 app.get('/search', routes.search)
+app.get('/topics/:topic_id/resources', routes.getResources)
 
 console.log('listening on port ' + port);
