@@ -1,8 +1,8 @@
 const Gun = require('gun')
 const _=require('underscore')
 
-const gun = Gun()
-const db = require('./db');
+//const gun = Gun()
+//const db = require('./db');
 
 function gun2array(obj){
 	return Object.keys(obj).filter((k)=>k!='_');
@@ -17,7 +17,7 @@ function cleanObj(obj){
 	return obj;
 }
 
-async function getTopicDeps(topic){
+async function getTopicDeps(gun, topic){
 	let topicDeps={}
 	let resources = await gun.get(topic).get('resources').once().then();
 	let reviews = await Promise.all(gun2array(resources).map((resKey)=>
@@ -67,7 +67,7 @@ async function getTopicDeps(topic){
 
 
 
-async function getLearningPath(initialTopic, time){
+async function getLearningPath(gun, initialTopic, time){
 	let topics=[{
 		topic:initialTopic,
 		weight:1
@@ -76,7 +76,7 @@ async function getLearningPath(initialTopic, time){
 	while(time>=0 || topics.length==0){
 		let topic=topics[0].topic;
 		//console.log(resources)
-		let stuff=await getTopicDeps(topic)
+		let stuff=await getTopicDeps(gun, topic)
 		let sumWeights=0;
 		Object.keys(stuff.topicDeps).forEach((t)=>sumWeights+=stuff.topicDeps[t])
 		Object.keys(stuff.topicDeps).forEach((t)=>{
