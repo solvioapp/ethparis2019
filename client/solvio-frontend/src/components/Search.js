@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom'
 // Css
 import '../styles/Search.css'
 
-export class Search extends React.Component<any,any> {
-  constructor(props: any){
+export class Search extends React.Component {
+  constructor(props){
     super(props)
 
     this.state = {
