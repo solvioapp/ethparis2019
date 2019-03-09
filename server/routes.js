@@ -165,7 +165,7 @@ module.exports.search = async (req, res, next) => {
 
     for (i in topics) {
         await hydrate(req.gun, topics, i)
-        if (matchQuery(q, topics[i]['title'])) {
+        if (topics[i] && matchQuery(q, topics[i]['title'])) {
             result_topics.push({
                 'id': i,
                 'title': topics[i]['title']

@@ -2,6 +2,65 @@ import React, { Component } from 'react';
 import Input from '@material-ui/core/Input';
 
 export class AddReview extends Component {
+    constructor(props){
+        super(props)
+    
+        this.state = {
+            topic: 'Hello',
+            quality: '',
+            length: '',
+            content: '',
+            dependencies: [{
+                topic: '',
+                weight: ''
+            }]
+        }
+    }
+
+    addDependency() {
+        this.setState(prevState => ({
+            dependencies: [...prevState.dependencies, {topic: '', weight: ''}]
+        }))
+    }
+
+    removeDependency(i) {
+        this.setState(prevState => ({
+            dependencies: prevState.dependencies.filter((value, index) => index != i)
+        }))
+    }
+
+    onDependencyTopicChange(i, event) {
+        let topic = event.target.value
+        this.setState(prevState => ({
+            dependencies: prevState.dependencies.map((value, index) => {
+                if (index == i) {
+                    return {
+                        topic: topic,
+                        weight: value['weight']
+                    }
+                } else {
+                    return value
+                }
+            })
+        }))
+    }
+
+    onDependencyWeightChange(i, event) {
+        let weight = event.target.value
+        this.setState(prevState => ({
+            dependencies: prevState.dependencies.map((value, index) => {
+                if (index == i) {
+                    return {
+                        topic: value['topic'],
+                        weight: weight
+                    }
+                } else {
+                    return value
+                }
+            })
+        }))
+    }
+
     render() {
         return (
             <div className="form-container">
@@ -18,11 +77,30 @@ export class AddReview extends Component {
                     </div>
                     <div className="form-field">
                         <h3>Length</h3>
-                        <p>In minutes</p>
+                        <p>Time you spent studying the resource in minutes</p>
                         <Input className="form-textbox"/>
                     </div>
                     <div className="form-field">
                         <h3>Dependencies</h3>
+                        <p>Which topics are prerequisites for understanding of this resource?</p>
+                        {this.state.dependencies.map((dependency, i) => {
+                            return (
+                                <div class="flex" key={i}>
+                                    <Input className="form-textbox form-textbox-dep-topic" 
+                                        placeholder="Topic" 
+                                        value={dependency.topic}
+                                        onChange={this.onDependencyTopicChange.bind(this, i)} />
+                                    <Input className="form-textbox form-textbox-dep-weight" 
+                                        placeholder="Weight" 
+                                        value={dependency.weight}
+                                        onChange={this.onDependencyWeightChange.bind(this, i)} />
+                                    <button onClick={this.removeDependency.bind(this, i)}> Remove </button>
+                                </div>
+                            )
+                        })}                        
+                        <div className="form-submit">
+                            <button onClick={this.addDependency.bind(this)}> Add </button>
+                        </div>
                     </div>
                     <div className="form-field">
                         <h3>Review</h3>
@@ -30,7 +108,7 @@ export class AddReview extends Component {
                         <Input className="form-textbox"/>
                     </div>
                     <div className="form-submit">
-                        <button className="btn-submit"> Add </button>
+                        <button className="btn-submit"> Submit </button>
                     </div>
                 </div>
             </div>
