@@ -4,15 +4,13 @@ import ReactDOM from 'react-dom'
 
 // Visual elements
 import { Panel, Header } from './state/head'
-import { Main, Section } from './state/body'
-import Search from './components/Search'
-import Footer from './stateless/footer-views'
+import { Main } from './state/body'
+import { Search } from './components/Search'
+import { FooterView as Footer } from './stateless/footer-views'
 
 // Css
 import './styles/styles.scss'
 
-// Placeholder text
-import Lorem from './stateless/lorem-ipsum-view'
 
 class App extends React.Component {
 
@@ -21,22 +19,16 @@ class App extends React.Component {
 		return (
 			<div className = "flexify">
 				<header>
-					<Panel id= "menu" />
+					<Panel id = "menu" />
 					<Header
-						id 		 = "header"
-						title 	 = "Home"
-						subtitle = "Welcome stranger"
-						name	 = "Identity"
-						logo	 = ""
+						id 	  = "header"
+						title = "Solvio Learn"
 					/>
 				</header>
 				<Main>
 					<Search />
-					<Section content = { <Lorem /> } />
 				</Main>
-				<Footer
-					owner = "Mentor Palokaj"
-				 />
+				<Footer />
 			</div>
 		)
 	}

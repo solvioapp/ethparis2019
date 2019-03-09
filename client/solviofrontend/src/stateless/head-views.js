@@ -39,20 +39,13 @@ export const MenuView = ( { links, register, login } )  =>  {
 	)
 }
 
-export const HeaderView =  ( { id, title, subtitle, name, logo } )  => (
+export const HeaderView =  ( { id, title } )  => (
 	<div id = { id } className = "valign" >
-		<a href = "/" className = "depth" id = "identity">
-			<img
-				id = "logo"
-				src= { logo }
-				className = { logo ? "" : "hide" } />
-			 { name }
+		<a href = "/" id = "logo">
+			<h1 class="logo">Solvio</h1>
 		</a>
-		<h1 id = "title" className="depth nomar" >
+		<h3 id = "title" className="depth" >
 			 { title }
-		</h1>
-		<p id = "subtitle" className="depth" >
-			 { subtitle }
-		</p>
+		</h3>
 	</div>
 )

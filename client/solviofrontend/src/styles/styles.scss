@@ -1,6 +1,8 @@
 // Color Palette
-$smooth-color: #f4f5f6;
-$accent-color: #9b4dca;
+// $smooth-color: #f4f5f6;
+$smooth-color: #ffffff;
+// $accent-color: #9b4dca;
+$accent-color: #f99215;
 // Specific color declarations
 $header-background: $smooth-color;
 $menu-background: $accent-color;
@@ -24,8 +26,8 @@ $hamburger-layer-color: $menu-background;
 $hamburger-layer-width: 30px;
 $hamburger-layer-height: 2px;
 $hamburger-layer-spacing: 6px;
-$hamburger-padding-x: $top-padding;
-$hamburger-padding-y: $top-padding;
+$hamburger-padding-x: 40px;
+$hamburger-padding-y: 40px;
 @import "./hamburgers/hamburgericon.scss";
 // Mobile definitions
 $mobile: 320px;
@@ -271,23 +273,21 @@ p {
 
 // header block styles
 #header {
-	min-height: 300px;
+	min-height: 100px;
 	background-color: $header-background;
 	flex-direction: column;
-	#identity {
+	#logo {
 		position: absolute;
-		left: 0;
+		left: 10px;
 		top: 0;
 		padding: $top-padding;
 		text-decoration: none;
-		color: $accent-color;
-		opacity: 0.7;
+		// color: $accent-color;
+		// opacity: 0.7;
 	}
 	#title {
-		color: $accent-color;
-	}
-	#subtitle {
 		opacity: 0.5;
+		padding: 20px 0 0 0;
 	}
 }
 
@@ -322,4 +322,37 @@ footer {
 		font-size: 0.8em;
 		opacity: 0.5;
 	}
+}
+
+.logo {
+	$font: 'Pacifico', cursive;
+	$navy: #001F3F; 
+	$blue: #0074D9; 
+	$aqua: #7FDBFF; 
+	$teal: #39CCCC; 
+	$olive: #3D9970; 
+	$green: #2ECC40; 
+	$lime: #01F870; 
+	$yellow: #FFDC00; 
+	$orange: #FF851B; 
+	$red: #FF4136; 
+	$fuchsia: #F012BE; 
+	$purple: #B10DC9; 
+	$maroon: #85144B; 
+	$white: #FFFFFF; 
+	$silver: #DDDDDD; 
+	$gray: #AAAAAA; 
+	$black: #111111; 
+
+	// ::selection { background-color: #C3CFE2; }
+
+
+	// background: linear-gradient(to right, #FFFE51 0%, #330867 100%);
+	background: linear-gradient(to right, $yellow 26%, $lime , $teal, $blue , $purple, $red, $orange, $yellow);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font: {
+		size: 48px;
+		family: $font;
+	};
 }

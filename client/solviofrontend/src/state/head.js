@@ -50,11 +50,8 @@ export class Header extends React.Component {
 	render(  ) {
 		return  (
 			<HeaderView
-				id 		 = { this.props.id }
-				title 	 = { this.props.title }
-				subtitle = { this.props.subtitle }
-				name 	 = {this.props.name }
-				logo 	 = {this.props.logo }
+				id 	  = { this.props.id }
+				title = { this.props.title }
 		 	/>
 		 )
 	}
