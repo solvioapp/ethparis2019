@@ -294,17 +294,5 @@ p {
 // Container definitions
 .container {
 	width: 100%;
-	margin: 50px 0;
-	@include min-size ( $mobile) {
-		width: 100%;
-		margin: 10px 0;
-	}
-	@include min-size ( $tablet) {
-		width: 80%;
-		margin: 10px 10%;
-	}
-	@include min-size ( $laptop) {
-		width: 50%;
-		margin: 50px 25%;
-	}
+	margin: 50px auto;
 }
