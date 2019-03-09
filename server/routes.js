@@ -4,15 +4,19 @@ const _ = require('underscore')
 const db = require('./db')
 
 function toResponse(obj) {
-    return _.omit(obj, (_, key, _) => { return key == '_' })
+    return _.omit(obj, '_')
 }
 
-async function hydrate(gun, node, property) {    
-    let value = await gun.get(node[property]['#']).then()        
-    console.log(value)
-    let response = toResponse(value)
-    console.log(response)
-    node[property] = response
+async function hydrate(gun, node, property) {
+    let value = await gun.get(node[property]['#']).then()
+    node[property] = toResponse(value)
+}
+
+async function hydrateSet(gun, node, property) {
+    await hydrate(gun, node, property) 
+    for (i in node[property]) {
+        await hydrate(gun, node[property], i)
+    }
 }
 
 module.exports.getTopics = async (req, res, next) => {
@@ -36,18 +40,21 @@ module.exports.getResource = async (req, res, next) => {
     const resource_id = req.params['resource_id']
     if (!resource_id) return res.status(400).send({'message': 'Invalid resource ID'})
 
-    const resource = await req.gun.get(resource_id).then()    
-    
-    await hydrate(req.gun, resource, 'topic')    
+    let resource = await req.gun.get(resource_id).then()
+    if (!resource) return res.sendStatus(404)
 
-    res.send(toResponse(resource))
+    resource = toResponse(resource)
+    await hydrate(req.gun, resource, 'topic')
+    await hydrateSet(req.gun, resource, 'reviews')
 
-    /*
-    (function (data) {        
-        if (!data) return res.status(404).send()
-        res.send(data)
-    })
-    */
+    for (review_id in resource['reviews']) {
+        await hydrateSet(req.gun, resource['reviews'][review_id], 'dependencies')
+        for (dependency_id in resource['reviews'][review_id]['dependencies']) {
+            await hydrate(req.gun, resource['reviews'][review_id]['dependencies'][dependency_id], 'topic')
+        }
+    }
+
+    res.send(resource)
 }
 
 module.exports.getReviews = async (req, res, next) => {    
@@ -107,4 +114,46 @@ module.exports.postReview = async (req, res, next) => {
     res.sendStatus(204)
 }
 
+module.exports.search = async (req, res, next) => {
+    const q = req.query['q']
+    if (!q) return res.status(400).send({'message': 'Missing query'})
 
+    let topics = await req.gun.get('topics').once().then()
+    let resources = await req.gun.get('resources').once().then()
+
+    topics = toResponse(topics)
+    resources = toResponse(resources)
+
+    result_topics = []
+
+    for (i in topics) {
+        await hydrate(req.gun, topics, i)
+        if (matchQuery(q, topics[i]['title'])) {
+            result_topics.push({
+                'id': i,
+                'title': topics[i]['title']
+            })
+        }
+    }
+
+    result_resources = []
+
+    for (i in resources) {
+        await hydrate(req.gun, resources, i)
+        if (matchQuery(q, resources[i]['title'])) {
+            result_resources.push({
+                'id': i,
+                'title': resources[i]['title']
+            })
+        }
+    }
+
+    res.send({
+        'topics': result_topics,
+        'resources': result_resources
+    })
+}
+
+function matchQuery(q, str) {
+    return q && str && str.toLowerCase().indexOf(q.toLowerCase()) != -1
+}

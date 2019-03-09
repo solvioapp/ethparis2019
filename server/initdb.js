@@ -8,9 +8,11 @@ db.createTopic('merkle tree');
 db.createTopic('public key cryptography');
 db.createTopic('hash functions');
 
-db.addResource2Topic('cryptocurrencies', 'Bitcoin whitepaper', 'https://bitcoin.org/bitcoin.pdf');
+db.addResource2Topic('cryptocurrencies', 'Bitcoin Whitepaper', 'https://bitcoin.org/bitcoin.pdf');
 
-db.addReview2Resource(1337,'https://bitcoin.org/bitcoin.pdf', 10, 60, [
+let resourceID = db.hash('https://bitcoin.org/bitcoin.pdf')
+
+db.addReview2Resource(1337,resourceID, 10, 60, [
 	{
 		topic: 'merkle tree',
 		weight: 2
@@ -24,6 +26,18 @@ db.addReview2Resource(1337,'https://bitcoin.org/bitcoin.pdf', 10, 60, [
 		weight: 5
 	},
 ], 'send coins pls');
+
+db.addReview2Resource(1338,resourceID, 8, 90, [
+	{
+		topic: 'merkle tree',
+		weight: 2
+	},
+	{
+		topic: 'public key cryptography',
+		weight: 5
+	}
+], 'ETH giveaway');
+
 /*
 var ethereum = gun.get('topic/ethereum').put({
     title: 'Ethereum'
@@ -65,3 +79,5 @@ gun.get('2f7d03db066cfb87d42bea917845568b94fc31bcebf4dd03acd5258ce2d83dc7').get(
     console.log(key)    
     console.log(util.inspect(data, {showHidden: false, depth: null}))
 })
+
+console.log(gun)
