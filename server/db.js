@@ -7,7 +7,8 @@ const gun = Gun({
 })
 
 function hash (string){
-	return crypto.createHmac('sha256', string)
+    return crypto.createHash('sha256')
+                   .update(string, 'utf8')
                    .digest('hex');
 }
 
