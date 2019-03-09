@@ -74,7 +74,7 @@
   color: #92a8d1;
 }
 .aoyue-select label.option span.title:hover {
-  /*color: #000;*/
+  color: #000;
   font-weight: bold;
   background: rgba(255, 255, 255, 0.3);
   box-shadow: inset 0px 1px 0px rgba(0, 0, 0, 0.1);
@@ -97,7 +97,6 @@
 
 .label-bordered {
   padding: 2px;
-  border: 1px solid #999;
+  border: 1px solid;
   border-radius: 4px;
-  color: #999;
 }

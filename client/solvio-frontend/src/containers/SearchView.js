@@ -20,10 +20,11 @@ export class SearchView extends Component {
     render() {
       const query = this.state.query
       const queryDefined = (query !== undefined && query !== "")
+      console.log(this.props)
         return (
             <div>
               <Search updateQuery={(query) => this.updateQuery(query)}/>
-              {(queryDefined) ? (<Dropdown query={this.state.query}/>) : ""}
+              {(queryDefined) ? (<Dropdown results={this.props.results} query={this.state.query}/>) : ""}
             </div>
 
         );

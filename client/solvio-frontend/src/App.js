@@ -51,7 +51,8 @@ class App extends React.Component {
 		this.state = {
 			learningPaths: defaultPaths,
 			pathIndex: 0,
-			query: ""
+			query: "",
+			results: "",
 		}
 	}
 
@@ -64,12 +65,15 @@ class App extends React.Component {
 
 	searchRequest(query){
 		// Make a request for a user with a given ID
+		const self = this
 		axios.get('http://localhost:8090/topics')
 		  .catch(function (error) {
 		    console.log(error);
 		  })
-		  .then(function (data) {
-				console.log(data)
+		  .then(function (res) {
+				var results = res.data.filter(topic => topic.title.trim().includes(query.trim()))
+				console.log(results)
+				self.setState({results: results})
 		  });
 
 	}
@@ -80,6 +84,7 @@ class App extends React.Component {
 
 	// Render the main application element
 	render( ) {
+		console.log(this.state)
 		return (
 			<div className = "flexify">
 				<header>
@@ -91,7 +96,7 @@ class App extends React.Component {
 				</header>
 				<Router>
 					<div className="container">
-						<Route path="/" exact render={props => <SearchView updateQuery={(query) => this.updateQuery(query)} />} />
+						<Route path="/" exact render={props => <SearchView results={this.state.results} updateQuery={(query) => this.updateQuery(query)} />} />
 						<Route path="/resource/:cid/addReview" component={AddReview} />
 						<Route path="/resource/:cid/reviews" component={Reviews} />
 						<Route path="/topic/:cid" component={Topic} />
