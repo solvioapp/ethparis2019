@@ -1,11 +1,9 @@
 import React from 'react'
 
-import '../styles/Footer.css'
+import '../styles/Footer.scss'
 
 export const FooterView = (props) =>  (
 		<footer>
-			{/* <div id = "copyright">
-				© Copyright { new Date().getFullYear() + " " + props.owner }
-			</div> */}
+			Made with ❤️ and 🥤 at EthParis '19
 		</footer>
 	)

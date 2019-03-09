@@ -296,3 +296,50 @@ p {
 	width: 100%;
 	margin: 50px auto;
 }
+
+.form-container {
+	display: flex;
+	justify-content: center;
+}
+
+.form-review {
+	width: 400px;
+}
+
+.form-field {
+	margin: 50px 0;
+}
+
+.form-textbox {
+	width: 450px;
+}
+
+.btn-submit {
+	display: inline-block;
+  text-align: center;
+  text-decoration: none;
+
+  /* create a small space when buttons wrap on 2 lines */
+  margin: 2px auto;
+  font-size: 18px;
+
+  /* invisible border (will be colored on hover/focus) */
+  border: solid 1px transparent;
+  border-radius: 4px;
+
+  /* size comes from text & padding (no width/height) */
+  padding: 0.5em 1em;
+
+  /* make sure colors have enough contrast! */
+  background-color: #58d323;
+  color: #ffffff;
+
+  height: 50px;
+  width: 260px;
+}
+
+.form-submit {
+	display: flex;
+	justify-content: center;
+	margin: 20px 0 50px 0;	
+}

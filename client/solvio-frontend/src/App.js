@@ -20,32 +20,10 @@ import sha256 from 'js-sha256'
 // Css
 import './styles/styles.scss'
 
-const r1 = {
-	title: "K Tutorial",
-	topic: "K",
-	url: "https://github.com/kframework/k/tree/master/k-distribution/tutorial/",
-	duration: 500,
-	quality: 82,
-}
+import { defaultPaths, defaultResources, defaultResource } from './defaults'
 
-const r2 = {
-	title: "Formal Verification Workshop 1",
-	topic: "K-EVM",
-	url: "https://www.youtube.com/watch?v=d6qHxDIeFw0",
-	duration: 75,
-	quality: 78
-}
-
-const r3 = {
-	title: "Formal Verification Workshop 2",
-	topic: "Formal verification of smart contracts using K",
-	url: "https://www.youtube.com/watch?v=n6AgBIkHlhg",
-	duration: 75,
-	quality: 88
-}
-
-const defaultPaths = [[r1, r2, r3], [r3, r1], [r3, r3, r2, r1]]
 const MIN_SEARCH_CHARS = 2
+
 
 class App extends React.Component {
 
@@ -57,7 +35,13 @@ class App extends React.Component {
 			pathIndex: 0,
 			query: "",
 			results: "",
+			// for topic
+			resources: defaultResources,
+			// For resource
+			resource: defaultResource,
 		}
+
+		this.setResource = this.setResource.bind(this)
 	}
 
 	updateQuery(query){
@@ -102,8 +86,20 @@ class App extends React.Component {
 
 	}
 
-	updatePathIndex(pathIndex) {
-		this.setState({pathIndex})
+	decPathIndex() {
+		if (this.state.pathIndex !== 0) {
+			this.setState({pathIndex: this.state.pathIndex - 1})
+		}
+	}
+
+	incPathIndex() {
+		if (this.state.pathIndex !== this.state.learningPaths.length - 1) {
+			this.setState({pathIndex: this.state.pathIndex + 1})
+		}
+	}
+
+	setResource(resource) {
+		this.setState({ resource })
 	}
 
 	// Render the main application element
@@ -112,23 +108,38 @@ class App extends React.Component {
 		return (
 			<div className = "flexify">
 				<Router>
-				<div>
-					<header>
-						<Panel />
-						<HeaderView
-							id 	  = "header"
-							title = "Solvio Learn"
-						/>
-					</header>
+					<div>
+						<header>
+							<Panel />
+							<HeaderView
+								id="header"
+								title="Solvio Learn"
+							/>
+						</header>
 						<div className="container">
 							<Route path="/" exact render={props => <SearchView results={this.state.results} updateQuery={(query) => this.updateQuery(query)} />} />
-							<Route path="/resource/:cid/addReview" component={AddReview} />
-							<Route path="/resource/:cid/reviews" component={Reviews} />
-							<Route path="/topic/:cid" component={Topic} />
+							<Route path="/resource/addReview" render={() => (
+								<AddReview
+									resourceID={this.state.resource.id}
+								/>
+							)} />
+							<Route path="/resource/reviews" render={() => (
+								<Reviews 
+									reviews={this.state.resource.reviews}
+								/>
+							)} />
+							<Route path="/topic" render={() => (
+								<Topic
+									setResource={this.setResource}
+									resources={this.state.resources}
+								/>
+							)} />
 							<Route path="/paths" render={() => (
 								<Path
+									setResource={this.setResource}
 									path={this.state.learningPaths[this.state.pathIndex]}
-									updatePathIndex={this.updatePathIndex}
+									decPathIndex={this.decPathIndex.bind(this)}
+									incPathIndex={this.incPathIndex.bind(this)}
 								/>
 							)} />
 						</div>
