@@ -120,5 +120,7 @@ async function getLearningPath(initialTopic, time){
 	return resources;
 }
 
-getLearningPath(db.hash('cryptocurrencies'), 70);
+//getLearningPath(db.hash('cryptocurrencies'), 70);
 //getTopicDeps('cryptocurrencies');
+
+module.exports.getLearningPath = getLearningPath

@@ -2,6 +2,7 @@ require('gun/lib/open.js')
 require('gun/lib/then.js')
 const _ = require('underscore')
 const db = require('./db')
+const { getLearningPath } = require('./learningPath')
 
 function toResponse(obj) {
     return _.omit(obj, '_')
@@ -79,6 +80,18 @@ module.exports.getResources = async (req, res, next) => {
     }
     
     res.send(resources)
+}
+
+module.exports.getLearningPath = async (req, res, next) => {
+    let topic_id = req.params['topic_id']
+    let length = req.params['length']
+
+    if (!topic_id) return res.status(400).send({'message': 'Missing topic ID'})
+    if (!length) return res.status(400).send({'message': 'Missing length'})
+    
+    let path = await getLearningPath(topic_id, length)
+
+    res.send(path)
 }
 
 module.exports.getReviews = async (req, res, next) => {    
