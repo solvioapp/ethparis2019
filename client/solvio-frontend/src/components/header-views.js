@@ -1,5 +1,6 @@
 // Import react
 import React from 'react'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import '../styles/Logo.scss'
 
@@ -46,8 +47,10 @@ export const HeaderView =  ( { id, title } )  => (
 		<a href = "/" id = "logo">
 			<h1 class="logo">Solvio</h1>
 		</a>
-		<h3 id = "title" className="depth" >
+		<Link to="/">
+			<h3 id = "main-title" className="depth" >
 			 { title }
-		</h3>
+			 </h3>
+		</Link>
 	</div>
 )

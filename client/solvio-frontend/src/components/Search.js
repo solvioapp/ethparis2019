@@ -30,7 +30,7 @@ export class Search extends React.Component {
                 <div className="search_wrapper">
                   <input className="input"
                       id="SearchBox"
-                      placeholder="Search"
+                      placeholder="Solvio for ..."
                       value={this.state.query}
                       onChange={(e) => this.handleChange(e)} />
                   <span className="underline"></span>

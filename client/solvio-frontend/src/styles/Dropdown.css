@@ -9,17 +9,18 @@
   src: url("//db.onlinewebfonts.com/t/251c35fe6eeec7ffa3d335357aabcbd0.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/251c35fe6eeec7ffa3d335357aabcbd0.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/251c35fe6eeec7ffa3d335357aabcbd0.woff") format("woff"), url("//db.onlinewebfonts.com/t/251c35fe6eeec7ffa3d335357aabcbd0.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/251c35fe6eeec7ffa3d335357aabcbd0.svg#ProximaNovaSoftW03-Semibold") format("svg");
 }
 .aoyue-select {
-  position: relative;
   overflow: hidden;
   display: block;
   margin: auto;
+  margin-top: 150px;
   width: 400px;
-  top: 50px;
   height: 100%;
   border-bottom: 0px;
   border-radius: 3px;
   font-size: 12px;
   box-shadow: 0px 1em 2em -1.5em rgba(0, 0, 0, 0.5);
+  color: #777;
+
 }
 
 .aoyue-select .title,
@@ -36,7 +37,6 @@
 .aoyue-select > input {
   position: absolute;
   left: 0px;
-  top: 0px;
   z-index: 1;
   width: 100%;
   height: 100%;
@@ -44,15 +44,13 @@
   opacity: 0;
   cursor: pointer;
 }
-.aoyue-select {
-  color: #999;
-}
+
 .aoyue-select > span.placeholder {
   position: relative;
   z-index: 0;
   display: inline-block;
   width: 100%;
-  color: #999;
+  color: #777;
   border-top: 0px;
 }
 .aoyue-select label.option {
@@ -83,7 +81,6 @@
   position: absolute;
   display: block;
   z-index: 3;
-  top: 0px;
   font-size: 12px;
   background: #fff;
   border-top: 0px;
@@ -96,4 +93,13 @@
   padding: 2px;
   border: 1px solid;
   border-radius: 4px;
+}
+
+.aoyue-select > a {
+  text-decoration: none;
+  color: #777 !important;
+}
+
+.aoyue-select > a:hover {
+text-decoration: none
 }

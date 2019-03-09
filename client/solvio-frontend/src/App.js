@@ -68,18 +68,15 @@ class App extends React.Component {
 	}
 
 	searchRequest(query){
-		console.log(query)
 		const requestIsUrl = statfunctions.validURL(query)
 		const self = this
 
 		if(requestIsUrl) {
 		axios.get('http://localhost:8090/resources/'+sha256(query))
 			.catch(function (error) {
-				console.log(error);
 				self.setState({results: "empty"})
 			})
 			.then(function (res) {
-				console.log(res)
 				if(res.status == 200){
 					const results = res.data
 					self.setState({results: results})
@@ -114,25 +111,27 @@ class App extends React.Component {
 		console.log(this.state)
 		return (
 			<div className = "flexify">
-				<header>
-					<Panel />
-					<HeaderView
-						id 	  = "header"
-						title = "Solvio Learn"
-					/>
-				</header>
 				<Router>
-					<div className="container">
-						<Route path="/" exact render={props => <SearchView results={this.state.results} updateQuery={(query) => this.updateQuery(query)} />} />
-						<Route path="/resource/:cid/addReview" component={AddReview} />
-						<Route path="/resource/:cid/reviews" component={Reviews} />
-						<Route path="/topic/:cid" component={Topic} />
-						<Route path="/paths" render={() => (
-							<Path
-								path={this.state.learningPaths[this.state.pathIndex]}
-								updatePathIndex={this.updatePathIndex}
-							/>
-						)} />
+				<div>
+					<header>
+						<Panel />
+						<HeaderView
+							id 	  = "header"
+							title = "Solvio Learn"
+						/>
+					</header>
+						<div className="container">
+							<Route path="/" exact render={props => <SearchView results={this.state.results} updateQuery={(query) => this.updateQuery(query)} />} />
+							<Route path="/resource/:cid/addReview" component={AddReview} />
+							<Route path="/resource/:cid/reviews" component={Reviews} />
+							<Route path="/topic/:cid" component={Topic} />
+							<Route path="/paths" render={() => (
+								<Path
+									path={this.state.learningPaths[this.state.pathIndex]}
+									updatePathIndex={this.updatePathIndex}
+								/>
+							)} />
+						</div>
 					</div>
 				</Router>
 
