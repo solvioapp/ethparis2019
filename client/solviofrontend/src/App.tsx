@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 // Visual elements
 import { Panel, Header } from './state/head'
 import { Main, Section } from './state/body'
+import Search from './components/Search'
 import Footer from './stateless/footer-views'
 
 // Css
@@ -30,6 +31,7 @@ class App extends React.Component {
 					/>
 				</header>
 				<Main>
+					<Search />
 					<Section content = { <Lorem /> } />
 				</Main>
 				<Footer
