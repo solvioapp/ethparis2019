@@ -19,27 +19,27 @@ import axios from 'axios'
 import './styles/styles.scss'
 
 const r1 = {
-	name: "K Tutorial",
+	title: "K Tutorial",
 	topic: "K",
 	url: "https://github.com/kframework/k/tree/master/k-distribution/tutorial/",
-	duration: "500",
-	quality: "82",
+	duration: 500,
+	quality: 82,
 }
 
 const r2 = {
-	name: "Formal Verification Workshop 1",
+	title: "Formal Verification Workshop 1",
 	topic: "K-EVM",
 	url: "https://www.youtube.com/watch?v=d6qHxDIeFw0",
-	duration: "75",
-	quality: "78"
+	duration: 75,
+	quality: 78
 }
 
 const r3 = {
-	name: "Formal Verification Workshop 2",
+	title: "Formal Verification Workshop 2",
 	topic: "Formal verification of smart contracts using K",
 	url: "https://www.youtube.com/watch?v=n6AgBIkHlhg",
-	duration: "75",
-	quality: "88"
+	duration: 75,
+	quality: 88
 }
 
 const defaultPaths = [[r1, r2, r3], [r3, r1], [r3, r3, r2, r1]]
