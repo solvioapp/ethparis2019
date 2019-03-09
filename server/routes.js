@@ -82,16 +82,16 @@ module.exports.getResources = async (req, res, next) => {
     res.send(resources)
 }
 
-module.exports.getLearningPath = async (req, res, next) => {
+module.exports.getLearningPaths = async (req, res, next) => {
     let topic_id = req.params['topic_id']
-    let length = req.params['length']
+    let length = req.query['length']
 
     if (!topic_id) return res.status(400).send({'message': 'Missing topic ID'})
     if (!length) return res.status(400).send({'message': 'Missing length'})
     
     let path = await getLearningPath(topic_id, length)
 
-    res.send(path)
+    res.send([path])
 }
 
 module.exports.getReviews = async (req, res, next) => {    
