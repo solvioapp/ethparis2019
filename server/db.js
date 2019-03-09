@@ -27,6 +27,7 @@ module.exports.addResource2Topic = function (topicName, title, url) {
 	})
 	s.get('topic').put(t);
 	gun.get(hash(topicName)).get('resources').set(s);
+	gun.get('resources').set(s);
 }
 
 module.exports.addReview2Resource = function (reviewID, resourceURL, quality, length, dependencies, content) {
@@ -38,8 +39,12 @@ module.exports.addReview2Resource = function (reviewID, resourceURL, quality, le
 		})
 	);
 	dependencies.forEach((d)=>{
-        gun.get('reviews/'+reviewID).get('dependencies').set(d)
-		//gun.get('reviews/'+reviewID).get('dependencies').get('topic').put(gun.get(hash(d.topic)));
-		//gun.get('reviews/'+reviewID).get('dependencies').get('weight').put(d.weight);
+		console.log(d);
+		let t = gun.get(hash(d.topic));
+		let s = gun.get('reviews/'+reviewID+'/deps/'+hash(d.topic)).put({
+			weight: d.weight
+		})
+		s.get('topic').put(t);
+		gun.get('reviews/'+reviewID).get('dependencies').set(s);
 	});
 }

@@ -50,12 +50,10 @@ example2.get('topic').set(ethereum)
 gun.get('resources').set(example1)
 gun.get('resources').set(example2)
 */
-/*
-gun.get('topics').open(function (data, key) {
+gun.get('reviews/1337').open(function (data, key) {
     console.log(key)
     console.log(data)
 })
-*/
 
 /*
 gun.get('topics').open(function (data, key) {
