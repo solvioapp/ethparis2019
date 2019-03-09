@@ -4,15 +4,19 @@ const _ = require('underscore')
 const db = require('./db')
 
 function toResponse(obj) {
-    return _.omit(obj, (_, key, _) => { return key == '_' })
+    return _.omit(obj, '_')
 }
 
-async function hydrate(gun, node, property) {    
-    let value = await gun.get(node[property]['#']).then()        
-    console.log(value)
-    let response = toResponse(value)
-    console.log(response)
-    node[property] = response
+async function hydrate(gun, node, property) {
+    let value = await gun.get(node[property]['#']).then()
+    node[property] = toResponse(value)
+}
+
+async function hydrateSet(gun, node, property) {
+    await hydrate(gun, node, property) 
+    for (i in node[property]) {
+        await hydrate(gun, node[property], i)
+    }
 }
 
 module.exports.getTopics = async (req, res, next) => {
@@ -36,18 +40,21 @@ module.exports.getResource = async (req, res, next) => {
     const resource_id = req.params['resource_id']
     if (!resource_id) return res.status(400).send({'message': 'Invalid resource ID'})
 
-    const resource = await req.gun.get(resource_id).then()    
-    
-    await hydrate(req.gun, resource, 'topic')    
+    let resource = await req.gun.get(resource_id).then()
+    if (!resource) return res.sendStatus(404)
 
-    res.send(toResponse(resource))
+    resource = toResponse(resource)
+    await hydrate(req.gun, resource, 'topic')
+    await hydrateSet(req.gun, resource, 'reviews')
 
-    /*
-    (function (data) {        
-        if (!data) return res.status(404).send()
-        res.send(data)
-    })
-    */
+    for (review_id in resource['reviews']) {
+        await hydrateSet(req.gun, resource['reviews'][review_id], 'dependencies')
+        for (dependency_id in resource['reviews'][review_id]['dependencies']) {
+            await hydrate(req.gun, resource['reviews'][review_id]['dependencies'][dependency_id], 'topic')
+        }
+    }
+
+    res.send(resource)
 }
 
 module.exports.getReviews = async (req, res, next) => {    

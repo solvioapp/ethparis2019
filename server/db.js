@@ -34,8 +34,8 @@ module.exports.addResource2Topic = function (topicName, title, url) {
     return resourceId
 }
 
-module.exports.addReview2Resource = function (reviewID, resourceURL, quality, length, dependencies, content) {
-	gun.get(hash(resourceURL)).get('reviews').set(
+module.exports.addReview2Resource = function (reviewID, resourceID, quality, length, dependencies, content) {
+	gun.get(resourceID).get('reviews').set(
 		gun.get('reviews/'+reviewID).put({
 			quality,
 			length,
@@ -43,12 +43,14 @@ module.exports.addReview2Resource = function (reviewID, resourceURL, quality, le
 		})
 	);
 	dependencies.forEach((d)=>{
-		console.log(d);
-		let t = gun.get(hash(d.topic));
-		let s = gun.get('reviews/'+reviewID+'/deps/'+hash(d.topic)).put({
-			weight: d.weight
-		})
-		s.get('topic').put(t);
-		gun.get('reviews/'+reviewID).get('dependencies').set(s);
+        let t = gun.get(hash(d.topic));
+        if (t) {
+            console.log(d);
+            let s = gun.get('reviews/'+reviewID+'/deps/'+hash(d.topic)).put({
+                weight: d.weight
+            })
+            s.get('topic').put(t);
+            gun.get('reviews/'+reviewID).get('dependencies').set(s);
+        }
 	});
 }
