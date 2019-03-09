@@ -2,7 +2,7 @@ require('bullet-catcher')
 
 const Gun = require('gun')
 const express = require('express')
-const reviews = require('./reviews')
+const routes = require('./routes')
 const app = express()
 
 function validate(msg) {
@@ -41,13 +41,13 @@ const gun = Gun({
 gun.on('out', {get: {'#': {'*': ''}}})
 
 
-app.use(function (req, res, next) {
-    console.log('add gun')
+app.use(function (req, res, next) {    
     req.gun = gun
     next()
 })
 
-app.get('/reviews', reviews.get)
-
+app.get('/resources/:resource_id', routes.getResource)
+app.get('/resources/:resource_id/reviews', routes.getReviews)
+app.post('/resources', routes.postResource)
 
 console.log('listening on port ' + port);
