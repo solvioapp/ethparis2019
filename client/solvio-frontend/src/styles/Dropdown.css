@@ -20,6 +20,8 @@
   border-radius: 3px;
   font-size: 12px;
   box-shadow: 0px 1em 2em -1.5em rgba(0, 0, 0, 0.5);
+
+
 }
 
 .aoyue-select .title,
@@ -44,6 +46,9 @@
   opacity: 0;
   cursor: pointer;
 }
+.aoyue-select {
+  color: #999;
+}
 .aoyue-select > span.placeholder {
   position: relative;
   z-index: 0;
@@ -57,21 +62,22 @@
   overflow: hidden;
   z-index: 1;
   width: 100%;
-  transition: all 1s ease-out;
+/*  transition: all 1s ease-out;*/
 }
 .aoyue-select label.option span.title {
   position: relative;
   z-index: 2;
-  transition: background .3s ease-out;
+  /*transition: background .3s ease-out;*/
 }
 .aoyue-select label.option span.title i.icon {
   padding-right: 8px;
   color: #92a8d1;
 }
 .aoyue-select label.option span.title:hover {
-  /*color: #fff;
+  /*color: #000;*/
+  font-weight: bold;
   background: rgba(255, 255, 255, 0.3);
-  box-shadow: inset 0px 1px 0px rgba(0, 0, 0, 0.1);*/
+  box-shadow: inset 0px 1px 0px rgba(0, 0, 0, 0.1);
 }
 .aoyue-select label.option input {
   display: none;
@@ -87,4 +93,11 @@
   box-shadow: none;
   color: inherit;
   width: 100%;
+}
+
+.label-bordered {
+  padding: 2px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  color: #999;
 }

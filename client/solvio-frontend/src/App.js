@@ -12,6 +12,8 @@ import { AddReview } from './components/AddReview'
 import { Path } from './components/Path'
 import { Reviews } from './components/Reviews'
 import { Topic } from './components/Topic'
+import axios from 'axios'
+
 
 // Css
 import './styles/styles.scss'
@@ -20,10 +22,27 @@ class App extends React.Component {
 
 	constructor(props){
 		super(props)
+		this.state = {
+			query: ""
+		}
 	}
 
 	updateQuery(query){
-		console.log(query)
+		if(query !== undefined){
+			this.setState({query:query})
+			this.searchRequest(query)
+		}
+	}
+
+	searchRequest(query){
+		// Make a request for a user with a given ID
+		axios.get('http://localhost:8090/topics')
+		  .catch(function (error) {
+		    console.log(error);
+		  })
+		  .then(function (data) {
+				console.log(data)
+		  });
 
 	}
 
@@ -40,7 +59,7 @@ class App extends React.Component {
 				</header>
 				<Router>
 					<div className="container">
-						<Route path="/" exact component={SearchView} />
+						<Route path="/" exact render={props => <SearchView updateQuery={(query) => this.updateQuery(query)} />} />
 						<Route path="/resource/:cid/addReview" component={AddReview} />
 						<Route path="/resource/:cid/reviews" component={Reviews} />
 						<Route path="/topic/:cid" component={Topic} />
