@@ -8,8 +8,8 @@ db.createTopic('public key cryptography');
 db.createTopic('hash functions');
 
 db.addResource2Topic('cryptocurrencies', 'Bitcoin whitepaper', 'https://bitcoin.org/bitcoin.pdf');
-/*
-addReview2Resource(1337,'https://bitcoin.org/bitcoin.pdf', 10, 60, [
+
+db.addReview2Resource(1337,'https://bitcoin.org/bitcoin.pdf', 10, 60, [
 	{
 		topic: 'merkle tree',
 		weight: 2
@@ -49,17 +49,20 @@ example2.get('topic').set(ethereum)
 gun.get('resources').set(example1)
 gun.get('resources').set(example2)
 */
-gun.get('topics').map().once(function (data, key) {
+/*
+gun.get('topics').open(function (data, key) {
     console.log(key)
     console.log(data)
 })
+*/
 
 /*
 gun.get('topics').open(function (data, key) {
     console.log(key)
     console.log(data)
 })
-gun.get('resources').once().open(function (data, key) {
+*/
+gun.get('2f7d03db066cfb87d42bea917845568b94fc31bcebf4dd03acd5258ce2d83dc7').get('reviews').open(function (data, key) {    
     console.log(key)
     console.log(data)    
-})*/
+})

@@ -46,7 +46,8 @@ app.use(function (req, res, next) {
     next()
 })
 
-app.get('/resources/:resourceId', routes.getResource)
-app.get('/resources/:resourceId/reviews', routes.getReviews)
+app.get('/resources/:resource_id', routes.getResource)
+app.get('/resources/:resource_id/reviews', routes.getReviews)
+app.post('/resources', routes.postResource)
 
 console.log('listening on port ' + port);

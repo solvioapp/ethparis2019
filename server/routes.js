@@ -35,3 +35,13 @@ module.exports.getReviews = async (req, res, next) => {
 
     res.send(result)
 }
+
+module.exports.postResource = async (req, res, next) => {
+    const resource_id = req.params['resource_id']
+    const quality = req.params['quality']
+    const length = req.params['length']
+    const dependencies = req.params['dependencies']
+    const content = req.params['content']    
+    
+    db.addReview2Resource(review_id, resource_id, quality, length, dependencies, content)
+}

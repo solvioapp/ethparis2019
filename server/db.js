@@ -38,7 +38,8 @@ module.exports.addReview2Resource = function (reviewID, resourceURL, quality, le
 		})
 	);
 	dependencies.forEach((d)=>{
-		gun.get('reviews/'+reviewID).get('dependencies').get('topic').put(gun.get(hash(d.topic)));
-		gun.get('reviews/'+reviewID).get('dependencies').get('weight').put(d.weight);
+        gun.get('reviews/'+reviewID).get('dependencies').set(d)
+		//gun.get('reviews/'+reviewID).get('dependencies').get('topic').put(gun.get(hash(d.topic)));
+		//gun.get('reviews/'+reviewID).get('dependencies').get('weight').put(d.weight);
 	});
 }
