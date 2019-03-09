@@ -84,13 +84,13 @@ module.exports.getReviews = async (req, res, next) => {
 module.exports.postResource = async (req, res, next) => {    
     const topic = req.body['topic']
     const title = req.body['title']
-    const url = req.body['url']    
+    const url = req.body['url']
 
     if (!topic) return res.status(400).send({'message': 'Missing topic'})
     if (!title) return res.status(400).send({'message': 'Missing title'})
     if (!url) return res.status(400).send({'message': 'Missing url'})
 
-    resourceId = db.addResource2Topic(topic, title, url)
+    let resourceId = db.addResource2Topic(topic, title, url)
 
     res.status(200).send({'id': resourceId})
 }

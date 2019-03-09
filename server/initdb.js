@@ -10,16 +10,17 @@ db.createTopic('hash functions');
 db.createTopic('K')
 db.createTopic('K-EVM')
 db.createTopic('Formal verification of smart contracts using K')
+db.createTopic('proof of stake')
 
 db.addResource2Topic('cryptocurrencies', 'Bitcoin Whitepaper', 'https://bitcoin.org/bitcoin.pdf');
 db.addResource2Topic('K', 'K Tutorial', 'https://github.com/kframework/k/tree/master/k-distribution/tutorial/')
 db.addResource2Topic('K-EVM', 'Formal Verification Workshop 1', 'https://www.youtube.com/watch?v=d6qHxDIeFw0')
 db.addResource2Topic('Formal verification of smart contracts using K', 'Formal Verification Workshop 2', 'https://www.youtube.com/watch?v=n6AgBIkHlhg')
+db.addResource2Topic('proof of stake', 'A Proof of Stake Design Philosophy', 'https://medium.com/@VitalikButerin/a-proof-of-stake-design-philosophy-506585978d51')
 
+let bitcoinResourceId = db.hash('https://bitcoin.org/bitcoin.pdf')
 
-let resourceID = db.hash('https://bitcoin.org/bitcoin.pdf')
-
-db.addReview2Resource(1337,resourceID, 10, 60, [
+db.addReview2Resource(1337,bitcoinResourceId, 10, 60, [
 	{
 		topic: 'merkle tree',
 		weight: 2
@@ -34,7 +35,7 @@ db.addReview2Resource(1337,resourceID, 10, 60, [
 	},
 ], 'send coins pls');
 
-db.addReview2Resource(1338,resourceID, 8, 90, [
+db.addReview2Resource(1338,bitcoinResourceId, 8, 90, [
 	{
 		topic: 'merkle tree',
 		weight: 2
@@ -44,6 +45,7 @@ db.addReview2Resource(1338,resourceID, 8, 90, [
 		weight: 5
 	}
 ], 'ETH giveaway');
+
 
 /*
 var ethereum = gun.get('topic/ethereum').put({
