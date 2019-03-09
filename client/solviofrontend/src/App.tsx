@@ -3,10 +3,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 // Visual elements
-import { Panel, Header } from './state/head'
-import { Main } from './state/body'
+import { Panel, Header } from './containers/head'
+import { Main } from './containers/body'
 import { Search } from './components/Search'
-import { FooterView as Footer } from './stateless/footer-views'
+import { FooterView as Footer } from './components/footer-views'
 
 // Css
 import './styles/styles.scss'

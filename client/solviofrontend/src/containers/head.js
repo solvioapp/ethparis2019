@@ -1,5 +1,5 @@
 import React from 'react'
-import { PanelView, HeaderView, MenuView, AccountView } from '../stateless/head-views'
+import { PanelView, HeaderView, MenuView, AccountView } from '../components/head-views'
 
 // The menu logic
 
