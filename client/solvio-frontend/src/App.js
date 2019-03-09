@@ -77,7 +77,7 @@ class App extends React.Component {
 				self.setState({results: "empty"})
 			})
 			.then(function (res) {
-				if(res.status == 200){
+				if(res.status !== undefined && res.status == 200){
 					const results = res.data
 					self.setState({results: results})
 				} else {
