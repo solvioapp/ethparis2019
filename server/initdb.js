@@ -21,9 +21,9 @@ async function addResource2Topic(topicName, title, url){
 	let t = gun.get(hash(topicName));
 	let s = gun.get(hash(url)).put({
 		title,
-		url,
-		topic: t
+		url
 	})
+	s.get('topic').put(t);
 	gun.get(hash(topicName)).get('resources').set(s);
 }
 
@@ -36,12 +36,8 @@ function addReview2Resource(reviewID, resourceURL, quality, length, dependencies
 		})
 	);
 	dependencies.forEach((d)=>{
-		gun.get('reviews/'+reviewID).get('dependencies').set(
-			{
-				topic: gun.get(hash(d.topic)),
-				weight: d.weight
-			}
-		)
+		gun.get('reviews/'+reviewID).get('dependencies').get('topic').put(gun.get(hash(d.topic)));
+		gun.get('reviews/'+reviewID).get('dependencies').get('weight').put(d.weight);
 	});
 }
 
