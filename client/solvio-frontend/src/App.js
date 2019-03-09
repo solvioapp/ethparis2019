@@ -1,24 +1,28 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 
 // Visual elements
 import { Panel } from './containers/Panel'
 import { HeaderView } from './components/header-views'
-import { MainView } from './components/MainView'
 import { Search } from './containers/Search'
 import { Dropdown } from './components/Dropdown'
-import { FooterView as Footer } from './components/FooterView'
+import { FooterView  } from './components/FooterView'
+import { AddReview } from './components/AddReview'
+import { Path } from './components/Path'
+import { Reviews } from './components/Reviews'
+import { Topic } from './components/Topic'
 
 // Css
 import './styles/styles.scss'
 
-class App extends React.Component<any,any> {
+class App extends React.Component {
 
-	constructor(props: any){
+	constructor(props){
 		super(props)
 	}
 
-	updateQuery(query: any){
+	updateQuery(query){
 		console.log(query)
 
 	}
@@ -34,11 +38,23 @@ class App extends React.Component<any,any> {
 						title = "Solvio Learn"
 					/>
 				</header>
-				<MainView>
-					<Search updateQuery={(query: any) => this.updateQuery(query)}/>
+				<Router>
+					<div className="container">
+						<Route path="/" exact component={Search} />
+						<Route path="/resource/:cid/addReview" component={AddReview} />
+						<Route path="/resource/:cid/reviews" component={Reviews} />
+						<Route path="/topic/:cid" component={Topic} />
+						<Route path="/path" component={Path} />
+					</div>
+					
+				</Router>
+
+				{/* <MainView>
+					<Search updateQuery={(query) => this.updateQuery(query)}/>
 					<Dropdown />
-				</MainView>
-				<Footer />
+				</MainView> */}
+
+				<FooterView />
 			</div>
 		)
 	}

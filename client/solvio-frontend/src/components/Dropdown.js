@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import "./Dropdown.css"
+import "../styles/Dropdown.css"
 
 export class Dropdown extends Component {
   render() {
