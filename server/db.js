@@ -22,14 +22,16 @@ module.exports.createTopic = function (name) {
 }
 
 module.exports.addResource2Topic = function (topicName, title, url) {
-	let t = gun.get(hash(topicName));
-	let s = gun.get(hash(url)).put({
+    let t = gun.get(hash(topicName));
+    let resourceId = hash(url)
+	let s = gun.get(resourceId).put({
 		title,
 		url
 	})
 	s.get('topic').put(t);
 	gun.get(hash(topicName)).get('resources').set(s);
-	gun.get('resources').set(s);
+    gun.get('resources').set(s);
+    return resourceId
 }
 
 module.exports.addReview2Resource = function (reviewID, resourceURL, quality, length, dependencies, content) {

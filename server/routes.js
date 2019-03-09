@@ -53,18 +53,23 @@ module.exports.getReviews = async (req, res, next) => {
     res.send(result)
 }
 
-module.exports.postResource = async (req, res, next) => {
-    const topic = req.params['topic']
-    const title = req.params['title']
-    const url = req.params['url']    
+module.exports.postResource = async (req, res, next) => {    
+    const topic = req.body['topic']
+    const title = req.body['title']
+    const url = req.body['url']    
 
-    db.addResource2Topic(topic_title, title, url)
+    if (!topic) return res.status(400).send({'message': 'Missing topic'})
+    if (!title) return res.status(400).send({'message': 'Missing title'})
+    if (!url) return res.status(400).send({'message': 'Missing url'})
 
-    res.send(204)
+    resourceId = db.addResource2Topic(topic, title, url)
+
+    res.status(200).send({'id': resourceId})
 }
 
 module.exports.postReview = async (req, res, next) => {
-    const resource_id = req.params['resource_id']
+    const review_id = req.params['review_id']
+    const resource_id = req.params['resource_id']    
     const quality = req.params['quality']
     const length = req.params['length']
     const dependencies = req.params['dependencies']

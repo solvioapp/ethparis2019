@@ -4,6 +4,7 @@ const Gun = require('gun')
 const express = require('express')
 const routes = require('./routes')
 const app = express()
+const bodyParser = require('body-parser')
 
 function validate(msg) {
     // TODO
@@ -40,6 +41,11 @@ const gun = Gun({
 // Sync everything
 gun.on('out', {get: {'#': {'*': ''}}})
 
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 
 app.use(function (req, res, next) {    
     req.gun = gun
