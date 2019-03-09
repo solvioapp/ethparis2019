@@ -1,5 +1,5 @@
 import React from 'react'
-import { PanelView, HeaderView, MenuView, AccountView } from '../components/head-views'
+import { PanelView, MenuView } from '../components/header-views'
 
 // The menu logic
 
@@ -30,7 +30,7 @@ export class Panel extends React.Component {
 	render(  ) {
 		// Display the panel
 		return (
-			<div id = { this.props.id }>
+			<div id = "menu" >
 				<PanelView
 					toggle 	= { this.toggle }
 					visible = { this.state.visible }
@@ -41,18 +41,5 @@ export class Panel extends React.Component {
 				 </PanelView>
 			</div>
 		)
-	}
-}
-
-
-// The header logic
-export class Header extends React.Component {
-	render(  ) {
-		return  (
-			<HeaderView
-				id 	  = { this.props.id }
-				title = { this.props.title }
-		 	/>
-		 )
 	}
 }

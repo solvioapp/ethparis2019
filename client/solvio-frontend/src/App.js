@@ -1,12 +1,12 @@
-console.log('Main js loaded')
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 // Visual elements
-import { Panel, Header } from './containers/head'
-import { Main } from './containers/body'
-import { Search } from './components/Search'
-import { FooterView as Footer } from './components/footer-views'
+import { Panel } from './containers/Panel'
+import { HeaderView } from './components/header-views'
+import { MainView } from './components/MainView'
+import { Search } from './containers/Search'
+import { FooterView as Footer } from './components/FooterView'
 
 // Css
 import './styles/styles.scss'
@@ -19,15 +19,15 @@ class App extends React.Component {
 		return (
 			<div className = "flexify">
 				<header>
-					<Panel id = "menu" />
-					<Header
+					<Panel />
+					<HeaderView
 						id 	  = "header"
 						title = "Solvio Learn"
 					/>
 				</header>
-				<Main>
+				<MainView>
 					<Search />
-				</Main>
+				</MainView>
 				<Footer />
 			</div>
 		)

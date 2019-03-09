@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 // Css
-import './Search.css'
+import '../styles/Search.css'
 
 export class Search extends React.Component<any,any> {
   constructor(props: any){
