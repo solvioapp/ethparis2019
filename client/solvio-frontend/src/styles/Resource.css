@@ -1,0 +1,10 @@
+.resource {
+    min-height: 200px;
+    background-color: antiquewhite !important;
+    color: aqua !important;
+    border: 2px;
+}
+
+.resourcetext {
+    color: red;
+}

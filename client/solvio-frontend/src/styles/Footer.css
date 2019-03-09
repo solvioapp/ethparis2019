@@ -1,0 +1,10 @@
+// Footer
+footer {
+	background-color: $smooth-color;
+	#copyright {
+		margin: 10px;
+		text-align: center;
+		font-size: 0.8em;
+		opacity: 0.5;
+	}
+}

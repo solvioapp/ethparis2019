@@ -1,0 +1,32 @@
+.logo {
+	$font: 'Pacifico', cursive;
+	$navy: #001F3F;
+	$blue: #0074D9;
+	$aqua: #7FDBFF;
+	$teal: #39CCCC;
+	$olive: #3D9970;
+	$green: #2ECC40;
+	$lime: #01F870;
+	$yellow: #FFDC00;
+	$orange: #FF851B;
+	$red: #FF4136;
+	$fuchsia: #F012BE;
+	$purple: #B10DC9;
+	$maroon: #85144B;
+	$white: #FFFFFF;
+	$silver: #DDDDDD;
+	$gray: #AAAAAA;
+	$black: #111111;
+
+	// ::selection { background-color: #C3CFE2; }
+
+
+	// background: linear-gradient(to right, #FFFE51 0%, #330867 100%);
+	background: linear-gradient(to right, $yellow 26%, $lime , $teal, $blue , $purple, $red, $orange, $yellow);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font: {
+		size: 48px;
+		family: $font;
+	};
+}
