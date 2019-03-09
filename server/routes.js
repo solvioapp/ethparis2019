@@ -114,4 +114,46 @@ module.exports.postReview = async (req, res, next) => {
     res.sendStatus(204)
 }
 
+module.exports.search = async (req, res, next) => {
+    const q = req.query['q']
+    if (!q) return res.status(400).send({'message': 'Missing query'})
 
+    let topics = await req.gun.get('topics').once().then()
+    let resources = await req.gun.get('resources').once().then()
+
+    topics = toResponse(topics)
+    resources = toResponse(resources)
+
+    result_topics = []
+
+    for (i in topics) {
+        await hydrate(req.gun, topics, i)
+        if (matchQuery(q, topics[i]['title'])) {
+            result_topics.push({
+                'id': i,
+                'title': topics[i]['title']
+            })
+        }
+    }
+
+    result_resources = []
+
+    for (i in resources) {
+        await hydrate(req.gun, resources, i)
+        if (matchQuery(q, resources[i]['title'])) {
+            result_resources.push({
+                'id': i,
+                'title': resources[i]['title']
+            })
+        }
+    }
+
+    res.send({
+        'topics': result_topics,
+        'resources': result_resources
+    })
+}
+
+function matchQuery(q, str) {
+    return q && str && str.toLowerCase().indexOf(q.toLowerCase()) != -1
+}
