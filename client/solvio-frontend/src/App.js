@@ -44,9 +44,9 @@ class App extends React.Component {
 						<Route path="/resource/:cid/addReview" component={AddReview} />
 						<Route path="/resource/:cid/reviews" component={Reviews} />
 						<Route path="/topic/:cid" component={Topic} />
-						<Route path="/path" render={(learningPaths) => {
+						<Route path="/path" render={(learningPaths) => (
 							<Path {...learningPaths} />
-						}} />
+						)} />
 					</div>
 				</Router>
 
