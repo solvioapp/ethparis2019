@@ -1,5 +1,6 @@
 require('gun/lib/open.js')
 require('gun/lib/then.js')
+const db = require('./db')
 
 module.exports.getResource = (req, res, next) => {
     const resource_id = req.params['resourceId']

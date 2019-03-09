@@ -1,52 +1,13 @@
 const Gun = require('gun')
-const crypto = require('crypto');
-require('gun/lib/open.js')
-
-function hash(string){
-	return crypto.createHmac('sha256', string)
-                   .digest('hex');
-}
-
+const db = require('./db');
 const gun = Gun()
 
-function createTopic(name){
-	gun.get('topics').set(
-		gun.get(hash(name)).put({
-			title: name
-		})
-	);
-}
+db.createTopic('cryptocurrencies');
+db.createTopic('merkle tree');
+db.createTopic('public key cryptography');
+db.createTopic('hash functions');
 
-async function addResource2Topic(topicName, title, url){
-	let t = gun.get(hash(topicName));
-	let s = gun.get(hash(url)).put({
-		title,
-		url
-	})
-	s.get('topic').put(t);
-	gun.get(hash(topicName)).get('resources').set(s);
-}
-
-function addReview2Resource(reviewID, resourceURL, quality, length, dependencies, content){
-	gun.get(hash(resourceURL)).get('reviews').set(
-		gun.get('reviews/'+reviewID).put({
-			quality,
-			length,
-			content,
-		})
-	);
-	dependencies.forEach((d)=>{
-		gun.get('reviews/'+reviewID).get('dependencies').get('topic').put(gun.get(hash(d.topic)));
-		gun.get('reviews/'+reviewID).get('dependencies').get('weight').put(d.weight);
-	});
-}
-
-createTopic('cryptocurrencies');
-createTopic('merkle tree');
-createTopic('public key cryptography');
-createTopic('hash functions');
-
-addResource2Topic('cryptocurrencies', 'Bitcoin whitepaper', 'https://bitcoin.org/bitcoin.pdf');
+db.addResource2Topic('cryptocurrencies', 'Bitcoin whitepaper', 'https://bitcoin.org/bitcoin.pdf');
 /*
 addReview2Resource(1337,'https://bitcoin.org/bitcoin.pdf', 10, 60, [
 	{
