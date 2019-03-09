@@ -42,8 +42,8 @@ async function getTopicDeps(topic){
 				//console.log(reviewVals[j+offset])
 				//finalResources[i].reviews.push(cleanObj(_.clone(reviewVals[j+offset])));
 				finalResources[i].reviews={
-					length: finalResources[i].reviews.length+reviewVals[j+offset].length,
-					quality: finalResources[i].reviews.quality+reviewVals[j+offset].quality
+					length: finalResources[i].reviews.length+reviewVals[j+offset].length/gun2array(reviews[i]).length,
+					quality: finalResources[i].reviews.quality+reviewVals[j+offset].quality/gun2array(reviews[i]).length
 				};
 
 			}
