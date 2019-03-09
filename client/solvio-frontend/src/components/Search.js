@@ -20,7 +20,7 @@ export class Search extends React.Component {
     this.setState({
             query
       })
-    this.props.updateQuery(query)
+    this.props.updateQuery(query.toLowerCase().trim())
     }
 
     render() {

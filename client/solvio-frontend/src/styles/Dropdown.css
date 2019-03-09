@@ -20,8 +20,6 @@
   border-radius: 3px;
   font-size: 12px;
   box-shadow: 0px 1em 2em -1.5em rgba(0, 0, 0, 0.5);
-
-
 }
 
 .aoyue-select .title,
@@ -71,7 +69,6 @@
 }
 .aoyue-select label.option span.title i.icon {
   padding-right: 8px;
-  color: #92a8d1;
 }
 .aoyue-select label.option span.title:hover {
   color: #000;

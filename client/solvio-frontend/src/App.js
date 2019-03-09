@@ -66,13 +66,13 @@ class App extends React.Component {
 	searchRequest(query){
 		// Make a request for a user with a given ID
 		const self = this
-		axios.get('http://localhost:8090/topics')
+		axios.get('http://localhost:8090/search?q='+query)
 		  .catch(function (error) {
 		    console.log(error);
 		  })
 		  .then(function (res) {
-				var results = res.data.filter(topic => topic.title.trim().includes(query.trim()))
-				console.log(results)
+				//var results = res.data.filter(topic => topic.title.trim().includes(query.trim()))
+				const results = res.data
 				self.setState({results: results})
 		  });
 
