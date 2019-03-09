@@ -13,6 +13,7 @@ import { Path } from './components/Path'
 import { Reviews } from './components/Reviews'
 import { Topic } from './components/Topic'
 import axios from 'axios'
+import * as statfunctions from './staticfunctions'
 
 import sha256 from 'js-sha256'
 
@@ -44,11 +45,13 @@ const r3 = {
 }
 
 const defaultPaths = [[r1, r2, r3], [r3, r1], [r3, r3, r2, r1]]
+const MIN_SEARCH_CHARS = 2
 
 class App extends React.Component {
 
 	constructor(props){
 		super(props)
+
 		this.state = {
 			learningPaths: defaultPaths,
 			pathIndex: 0,
@@ -65,33 +68,40 @@ class App extends React.Component {
 	}
 
 	searchRequest(query){
-		// Make a request for a user with a given ID
+		console.log(query)
+		const requestIsUrl = statfunctions.validURL(query)
 		const self = this
-		axios.get('http://localhost:8090/search?q='+query)
-		  .catch(function (error) {
-		    console.log(error);
-		  })
-		  .then(function (res) {
-				//var results = res.data.filter(topic => topic.title.trim().includes(query.trim()))
-				const results = res.data
-				self.setState({results: results})
-		  });
 
-			//sha265
-			console.log(query)
-			console.log(sha256(query))
-			axios.get('http://localhost:8090/resources/'+sha256(query))
+		if(requestIsUrl) {
+		axios.get('http://localhost:8090/resources/'+sha256(query))
+			.catch(function (error) {
+				console.log(error);
+				self.setState({results: "empty"})
+			})
+			.then(function (res) {
+				console.log(res)
+				if(res.status == 200){
+					const results = res.data
+					self.setState({results: results})
+				} else {
+					self.setState({results: "empty"})
+				}
+				//var results = res.data.filter(topic => topic.title.trim().includes(query.trim()))
+			});
+		} else if(query.length > MIN_SEARCH_CHARS) {
+			// Make a request for a user with a given ID
+			axios.get('http://localhost:8090/search?q='+query)
 			  .catch(function (error) {
 			    console.log(error);
 			  })
 			  .then(function (res) {
-					console.log(res)
-					if(res.status == 200){
-						const results = res.data
-						self.setState({results: results})
-					}
 					//var results = res.data.filter(topic => topic.title.trim().includes(query.trim()))
+					const results = res.data
+					self.setState({results: results})
 			  });
+			} else {
+				self.setState({results: ""})
+			}
 
 	}
 
