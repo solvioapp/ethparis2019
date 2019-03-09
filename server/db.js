@@ -2,7 +2,9 @@ const Gun = require('gun')
 const crypto = require('crypto')
 require('gun/lib/open.js')
 
-const gun = Gun()
+const gun = Gun({
+    isValid: function () { return true }
+})
 
 function hash (string){
 	return crypto.createHmac('sha256', string)

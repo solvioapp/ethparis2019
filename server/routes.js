@@ -2,11 +2,21 @@ require('gun/lib/open.js')
 require('gun/lib/then.js')
 const db = require('./db')
 
-module.exports.getTopics = (req, res, next) => {
-    req.gun.get('topics').open(function (data) {
-        // TODO
-        res.send(data)
-    })
+module.exports.getTopics = async (req, res, next) => {
+    topics = await req.gun.get('topics').once().then()
+    result = []
+    for (i in topics) {
+        if (i != '_') {
+            topic = await req.gun.get(i).once().then()
+            if (topic && topic['title']) {
+                result.push({
+                    'id': i,
+                    'title': topic['title']
+                })
+            }
+        }
+    }
+    res.send(result)
 }
 
 module.exports.getResource = (req, res, next) => {
