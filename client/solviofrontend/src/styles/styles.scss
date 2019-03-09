@@ -1,0 +1,325 @@
+// Color Palette
+$smooth-color: #f4f5f6;
+$accent-color: #9b4dca;
+// Specific color declarations
+$header-background: $smooth-color;
+$menu-background: $accent-color;
+// Animations
+$menu-transition-speed: 0.5s;
+$hover-speed: 0.3s;
+@mixin hover-txt ( $speed) {
+	transition: $speed;
+	text-shadow: 0 8px 5px rgba(0, 0, 0, 0.3);
+}
+
+@mixin hover-element ( $speed) {
+	transition: $speed;
+	box-shadow: 0 8px 5px rgba(0, 0, 0, 0.3);
+}
+
+// Header configs
+$top-padding: 20px;
+// Hamburger config
+$hamburger-layer-color: $menu-background;
+$hamburger-layer-width: 30px;
+$hamburger-layer-height: 2px;
+$hamburger-layer-spacing: 6px;
+$hamburger-padding-x: $top-padding;
+$hamburger-padding-y: $top-padding;
+@import "./hamburgers/hamburgericon.scss";
+// Mobile definitions
+$mobile: 320px;
+$tablet: 768px;
+$laptop: 1024px;
+@mixin min-size ( $size) {
+	@media screen and (min-width: $size) {
+		@content;
+	}
+}
+
+
+/* Getting relevant fonts */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300');
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+
+// App container defs
+#container {
+	position: relative;
+	overflow: hidden;
+}
+
+// Sticky footer
+.flexify {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+// Browser stylesheet overrides
+button:focus {
+	outline: 0px;
+}
+
+body {
+	margin: 0;
+}
+
+// Visibility helpers
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
+.absolute-show {
+	left: 0;
+	top: 0;
+}
+
+.absolute-out-right {
+	position: absolute;
+	left: 100vw;
+	top: 0;
+}
+
+// Sizing helpers
+.full {
+	position: absolute;
+	top: 0;
+	min-height: 100vh;
+	width: 100vw;
+}
+
+.depth {
+	transition: $hover-speed;
+	&:hover {
+		@include hover-txt ( $hover-speed) opacity: 0.8;
+	}
+}
+
+.shadow {
+	@include hover-txt ( $hover-speed)
+}
+
+// Alignment helpers
+.valign {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+// Styling helpers
+.white {
+	color: white;
+}
+
+.center {
+	text-align: center;
+}
+
+.nomar {
+	margin: 0;
+}
+
+.mouse {
+	cursor: pointer;
+}
+
+.ripple {
+	position: relative;
+	overflow: hidden;
+}
+
+.ripple:after {
+	content: "";
+	background: rgba(0, 0, 0, 0.3);
+	display: block;
+	position: absolute;
+	border-radius: 50%;
+	padding-top: 240%;
+	padding-left: 240%;
+	margin-top: -120%;
+	margin-left: -120%;
+	opacity: 0;
+	transition: all $menu-transition-speed;
+}
+
+.ripple:active:after {
+	padding-top: 0;
+	padding-left: 0;
+	margin-top: 0;
+	margin-left: 0;
+	opacity: 1;
+	transition: 0s;
+}
+
+// Typography
+$breakpoints: ( small: 480px,
+	medium: 768px,
+	large: 1024px);
+$p-font-sizes: ( null: 15px,
+	small: 16px,
+	medium: 17px,
+	large: 19px);
+$h1-font-sizes: ( null: 28px,
+	small: 31px,
+	medium: 33px,
+	large: 46px);
+@mixin font-size($fs-map,
+	$fs-breakpoints: $breakpoints) {
+	@each $fs-breakpoint,
+	$fs-font-size in $fs-map {
+		@if $fs-breakpoint==null {
+			font-size: $fs-font-size;
+		}
+		@else {
+            // If $fs-font-size is a key that exists in
+            // $fs-breakpoints, use the value
+            @if map-has-key($fs-breakpoints,
+            	$fs-breakpoint) {
+            	$fs-breakpoint: map-get($fs-breakpoints, $fs-breakpoint);
+            }
+            @media screen and (min-width: $fs-breakpoint) {
+            	font-size: $fs-font-size;
+            }
+        }
+    }
+}
+
+h1 {
+	@include font-size ( $h1-font-sizes)
+}
+
+p {
+	@include font-size($p-font-sizes);
+}
+
+// Menu styles
+#menu {
+	nav {
+		background-color: $menu-background;
+		z-index: 1;
+		transition: $menu-transition-speed ease;
+		button {
+			position: relative;
+			right: 0;
+			top: 0;
+			z-index: 2;
+		}
+		#menutitle {
+			text-align: center;
+			color: white;
+			font-size: 2rem;
+			text-transform: capitalize;
+		}
+		ul {
+			list-style: none;
+			text-align: center;
+			margin: 0;
+			padding: 0;
+			.menuitem {
+                // Font styling
+                font-size: 1.5rem;
+                color: white;
+                text-decoration: underline;
+                cursor: pointer;
+                margin: 10px 0;
+                li {
+                	padding: 10px 0;
+                }
+            }
+        }
+    }
+    #menu-btn {
+    	position: absolute;
+    	right: 0;
+    	top: 0;
+    	z-index: 2;
+    	transition: $menu-transition-speed;
+    	.hamburger-inner,
+    	.hamburger-inner::before,
+    	.hamburger-inner::after {
+    		transition: 1s;
+    	}
+    	&.is-active {
+    		.hamburger-inner,
+    		.hamburger-inner::before,
+    		.hamburger-inner::after {
+    			background-color: $header-background;
+    		}
+    	}
+    	&:hover {
+    		.hamburger-inner,
+    		.hamburger-inner::before,
+    		.hamburger-inner::after {
+    			@include hover-element ( $hover-speed)
+    		}
+    	}
+    }
+}
+
+// header block styles
+#header {
+	min-height: 300px;
+	background-color: $header-background;
+	flex-direction: column;
+	#identity {
+		position: absolute;
+		left: 0;
+		top: 0;
+		padding: $top-padding;
+		text-decoration: none;
+		color: $accent-color;
+		opacity: 0.7;
+	}
+	#title {
+		color: $accent-color;
+	}
+	#subtitle {
+		opacity: 0.5;
+	}
+}
+
+// Container definitions
+.container {
+	width: 100%;
+	margin: 50px 0;
+	@include min-size ( $mobile) {
+		width: 100%;
+		margin: 10px 0;
+	}
+	@include min-size ( $tablet) {
+		width: 80%;
+		margin: 10px 10%;
+	}
+	@include min-size ( $laptop) {
+		width: 50%;
+		margin: 50px 25%;
+	}
+}
+
+section {
+	padding: 20px;
+}
+
+// Footer
+footer {
+	background-color: $smooth-color;
+	#copyright {
+		margin: 10px;
+		text-align: center;
+		font-size: 0.8em;
+		opacity: 0.5;
+	}
+}
