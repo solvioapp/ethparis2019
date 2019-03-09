@@ -46,8 +46,10 @@ app.use(function (req, res, next) {
     next()
 })
 
+app.get('/topics', routes.getTopics)
 app.get('/resources/:resource_id', routes.getResource)
 app.get('/resources/:resource_id/reviews', routes.getReviews)
 app.post('/resources', routes.postResource)
+app.post('/resources/:resource_id/reviews', routes.postReview)
 
 console.log('listening on port ' + port);

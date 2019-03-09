@@ -1,6 +1,7 @@
 const Gun = require('gun')
 const db = require('./db');
 const gun = Gun()
+const util = require('util')
 
 db.createTopic('cryptocurrencies');
 db.createTopic('merkle tree');
@@ -63,6 +64,6 @@ gun.get('topics').open(function (data, key) {
 })
 */
 gun.get('2f7d03db066cfb87d42bea917845568b94fc31bcebf4dd03acd5258ce2d83dc7').get('reviews').open(function (data, key) {    
-    console.log(key)
-    console.log(data)    
+    console.log(key)    
+    console.log(util.inspect(data, {showHidden: false, depth: null}))
 })
