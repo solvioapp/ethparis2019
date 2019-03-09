@@ -2,6 +2,13 @@ require('gun/lib/open.js')
 require('gun/lib/then.js')
 const db = require('./db')
 
+module.exports.getTopics = (req, res, next) => {
+    req.gun.get('topics').open(function (data) {
+        // TODO
+        res.send(data)
+    })
+}
+
 module.exports.getResource = (req, res, next) => {
     const resource_id = req.params['resourceId']
     if (!resource_id) return res.status(400).send({'message': 'Invalid resource ID'})
@@ -37,6 +44,16 @@ module.exports.getReviews = async (req, res, next) => {
 }
 
 module.exports.postResource = async (req, res, next) => {
+    const topic = req.params['topic']
+    const title = req.params['title']
+    const url = req.params['url']    
+
+    db.addResource2Topic(topic_title, title, url)
+
+    res.send(204)
+}
+
+module.exports.postReview = async (req, res, next) => {
     const resource_id = req.params['resource_id']
     const quality = req.params['quality']
     const length = req.params['length']
@@ -44,4 +61,6 @@ module.exports.postResource = async (req, res, next) => {
     const content = req.params['content']    
     
     db.addReview2Resource(review_id, resource_id, quality, length, dependencies, content)
+
+    res.send(204)
 }
