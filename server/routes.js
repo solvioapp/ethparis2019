@@ -89,7 +89,7 @@ module.exports.getLearningPaths = async (req, res, next) => {
     if (!topic_id) return res.status(400).send({'message': 'Missing topic ID'})
     if (!length) return res.status(400).send({'message': 'Missing length'})
     
-    let path = await getLearningPath(topic_id, length)
+    let path = await getLearningPath(req.gun, topic_id, length)
 
     res.send([path])
 }
