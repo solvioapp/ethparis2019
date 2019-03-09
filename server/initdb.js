@@ -7,8 +7,15 @@ db.createTopic('cryptocurrencies');
 db.createTopic('merkle tree');
 db.createTopic('public key cryptography');
 db.createTopic('hash functions');
+db.createTopic('K')
+db.createTopic('K-EVM')
+db.createTopic('Formal verification of smart contracts using K')
 
 db.addResource2Topic('cryptocurrencies', 'Bitcoin Whitepaper', 'https://bitcoin.org/bitcoin.pdf');
+db.addResource2Topic('K', 'K Tutorial', 'https://github.com/kframework/k/tree/master/k-distribution/tutorial/')
+db.addResource2Topic('K-EVM', 'Formal Verification Workshop 1', 'https://www.youtube.com/watch?v=d6qHxDIeFw0')
+db.addResource2Topic('Formal verification of smart contracts using K', 'Formal Verification Workshop 2', 'https://www.youtube.com/watch?v=n6AgBIkHlhg')
+
 
 let resourceID = db.hash('https://bitcoin.org/bitcoin.pdf')
 
