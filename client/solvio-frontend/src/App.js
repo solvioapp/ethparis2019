@@ -14,6 +14,7 @@ import { Reviews } from './components/Reviews'
 import { Topic } from './components/Topic'
 import axios from 'axios'
 
+import sha256 from 'js-sha256'
 
 // Css
 import './styles/styles.scss'
@@ -75,6 +76,22 @@ class App extends React.Component {
 				const results = res.data
 				self.setState({results: results})
 		  });
+
+			//sha265
+			console.log(query)
+			console.log(sha256(query))
+			axios.get('http://localhost:8090/resources/'+sha256(query))
+			  .catch(function (error) {
+			    console.log(error);
+			  })
+			  .then(function (res) {
+					console.log(res)
+					if(res.status == 200){
+						const results = res.data
+						self.setState({results: results})
+					}
+					//var results = res.data.filter(topic => topic.title.trim().includes(query.trim()))
+			  });
 
 	}
 

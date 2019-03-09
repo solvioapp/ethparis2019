@@ -1,13 +1,35 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import "../styles/Dropdown.css"
 
 export class Dropdown extends Component {
 
+ validURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
+}
+
   renderDropdownElements(results){
     console.log(results)
     var title_query = this.props.query
-    if(results.topics !== undefined){
+
+    if(this.validURL(title_query)){
+      return (
+        <label className="option">
+          <span className="title animated fadeIn">
+          <span className="label-bordered">
+          <i class="far fa-file"></i>
+           Add Resource</span>
+           {" " + title_query}</span>
+        </label>
+      )
+    } else if(results.topics !== undefined){
       const topicNonExistent = results.topics.length == 0
       if(topicNonExistent) {
         return (<label className="option">
@@ -52,9 +74,7 @@ export class Dropdown extends Component {
         <div className="aoyue-select animated zoomIn">
           {this.renderDropdownElements(results)}
 
-            <label className="option">
-              <span className="title animated fadeIn"><span className="label-bordered"><i class="far fa-file"></i> Add Resource</span> Linear Algebra Book 1</span>
-            </label>
+
             <label className="option">
               <span className="title animated fadeIn"><span className="label-bordered"><i class="fas fa-pen-square"></i> Add Review</span>  Linear Algebra Book 2</span>
             </label>
