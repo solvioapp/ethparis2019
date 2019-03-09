@@ -23,7 +23,7 @@
 
 }
 
-.aoyue-select .title,
+.aoyue-select .dropdown-title,
 .aoyue-select .placeholder {
   position: relative;
   display: block;
@@ -60,15 +60,15 @@
   width: 100%;
 /*  transition: all 1s ease-out;*/
 }
-.aoyue-select label.option span.title {
+.aoyue-select label.option span.dropdown-title {
   position: relative;
   z-index: 2;
   /*transition: background .3s ease-out;*/
 }
-.aoyue-select label.option span.title i.icon {
+.aoyue-select label.option span.dropdown-title i.icon {
   padding-right: 8px;
 }
-.aoyue-select label.option span.title:hover {
+.aoyue-select label.option span.dropdown-title:hover {
   color: #000;
   font-weight: bold;
   background: rgba(255, 255, 255, 0.3);
@@ -77,7 +77,7 @@
 .aoyue-select label.option input {
   display: none;
 }
-.aoyue-select label.option input:checked ~ span.title {
+.aoyue-select label.option input:checked ~ span.dropdown-title {
   position: absolute;
   display: block;
   z-index: 3;

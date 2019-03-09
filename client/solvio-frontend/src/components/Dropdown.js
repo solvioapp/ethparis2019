@@ -23,7 +23,7 @@ export class Dropdown extends Component {
         return (
           <Link to={link}>
             <label className="option">
-              <span className="title animated fadeIn">
+              <span className="dropdown-title animated fadeIn">
               <span className="label-bordered">
               <i class="far fa-file"></i> Add Resource</span>
                {" " + title_query}</span>
@@ -35,7 +35,7 @@ export class Dropdown extends Component {
         return (
           <Link to={link}>
             <label className="option">
-              <span className="title animated fadeIn">
+              <span className="dropdown-title animated fadeIn">
               <span className="label-bordered">
               <i class="fas fa-pen-square"></i> Add Review</span>
                {" " + results.title}</span>
@@ -50,7 +50,7 @@ export class Dropdown extends Component {
         return (
           <Link to={link}>
             <label className="option">
-              <span className="title animated fadeIn">
+              <span className="dropdown-title animated fadeIn">
                 <span className="label-bordered">
                   <i class="fas fa-plus"></i> Add Topic</span>
                  {" " + title_query.charAt(0).toUpperCase() + title_query.slice(1)}</span>
@@ -71,7 +71,7 @@ export class Dropdown extends Component {
           return (
             <Link to={link}>
               <label className="option">
-              <span className="title animated fadeIn">
+              <span className="dropdown-title animated fadeIn">
               <span className="label-bordered">
                 <i class="fab fa-leanpub"></i> {(result.type == "topic") ? "Learn" : "Add Review" }
                 </span>

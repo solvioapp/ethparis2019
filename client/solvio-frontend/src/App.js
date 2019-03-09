@@ -61,7 +61,9 @@ class App extends React.Component {
 				self.setState({results: "empty"})
 			})
 			.then(function (res) {
-				if(res.status !== undefined && res.status == 200){
+				if(res.status !== undefined
+					 && res.status == 200
+					 && res.data !== undefined){
 					const results = res.data
 					self.setState({results: results})
 				} else {
@@ -76,9 +78,10 @@ class App extends React.Component {
 			    console.log(error);
 			  })
 			  .then(function (res) {
-					//var results = res.data.filter(topic => topic.title.trim().includes(query.trim()))
-					const results = res.data
-					self.setState({results: results})
+					if(res.data !== undefined) {
+						const results = res.data
+						self.setState({results: results})
+					}
 			  });
 			} else {
 				self.setState({results: ""})
@@ -124,7 +127,7 @@ class App extends React.Component {
 								/>
 							)} />
 							<Route path="/resource/reviews" render={() => (
-								<Reviews 
+								<Reviews
 									reviews={this.state.resource.reviews}
 								/>
 							)} />
