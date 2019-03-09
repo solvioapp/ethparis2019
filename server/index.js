@@ -6,11 +6,18 @@ function validate(msg) {
     return true
 }
 
-const server = require('http').createServer()
-
+const server = require('http').createServer((req, res) => {
+    // filters gun requests!
+    if (Gun.serve(req, res)) {
+        return
+    }
+    res.writeHead(404, {"Content-Type": "text/plain"})
+    res.write("404 Not Found\n")
+    res.end()
+})
+  
 // Pass the validation function as isValid
 const gun = Gun({
-    file: 'data.json',
     web: server,
     isValid: validate
 })
@@ -18,4 +25,4 @@ const gun = Gun({
 // Sync everything
 gun.on('out', {get: {'#': {'*': ''}}})
 
-server.listen(process.env.PORT || 8080)
+server.listen(process.env.PORT || 8090)

@@ -1,0 +1,30 @@
+<script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+<script>
+var gun = Gun('http://localhost:8090' + '/gun');
+
+
+const topics = gun.get('topics');
+
+const ethereum = topics.get('ethereum').put({title: 'Ethereum'}, function (ack) {
+    console.log('ack', ack)
+})
+
+
+const resources = gun.get('resources');
+const mastering_ethereum = resources.get('mastering_ethereum').put({
+    title: 'Mastering Ethereum', 
+    url: 'https://github.com/ethereumbook/ethereumbook'    
+})
+
+mastering_ethereum.put({topic: ethereum})
+
+
+//ethereum.get('resources').set(mastering_ethereum)
+
+
+gun.get('topics').on(function (data, key) {
+    console.log('topics', data, key)
+});
+
+
+</script>
