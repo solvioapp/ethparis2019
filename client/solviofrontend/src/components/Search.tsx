@@ -20,6 +20,7 @@ export class Search extends React.Component<any,any> {
     this.setState({
             query
       })
+    this.props.updateQuery(query)
     }
 
     render() {
@@ -34,7 +35,6 @@ export class Search extends React.Component<any,any> {
                       onChange={(e) => this.handleChange(e)} />
                   <span className="underline"></span>
                 </div>
-                <p>{this.state.query}</p>
             </form>
           </div>
         )

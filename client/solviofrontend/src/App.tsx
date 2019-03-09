@@ -6,13 +6,22 @@ import ReactDOM from 'react-dom'
 import { Panel, Header } from './containers/head'
 import { Main } from './containers/body'
 import { Search } from './components/Search'
+import { Dropdown } from './components/Dropdown'
 import { FooterView as Footer } from './components/footer-views'
 
 // Css
 import './styles/styles.scss'
 
+class App extends React.Component<any,any> {
 
-class App extends React.Component {
+	constructor(props: any){
+		super(props)
+	}
+
+	updateQuery(query: any){
+		console.log(query)
+
+	}
 
 	// Render the main application element
 	render( ) {
@@ -26,7 +35,8 @@ class App extends React.Component {
 					/>
 				</header>
 				<Main>
-					<Search />
+					<Search updateQuery={(query: any) => this.updateQuery(query)}/>
+					<Dropdown />
 				</Main>
 				<Footer />
 			</div>
