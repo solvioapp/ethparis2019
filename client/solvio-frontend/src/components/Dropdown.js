@@ -1,15 +1,41 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import * as statfunctions from '../staticfunctions'
 
 import "../styles/Dropdown.css"
 
 export class Dropdown extends Component {
 
+
   renderDropdownElements(results){
     console.log(results)
     var title_query = this.props.query
-    if(results.topics !== undefined){
-      const topicNonExistent = results.topics.length == 0
-      if(topicNonExistent) {
+
+    const isUrl = statfunctions.validURL(title_query)
+    const isUrlNonExistent = (results == "empty")
+    if(isUrl){
+      if(isUrlNonExistent) {
+        return (
+          <label className="option">
+            <span className="title animated fadeIn">
+            <span className="label-bordered">
+            <i class="far fa-file"></i> Add Resource</span>
+             {" " + title_query}</span>
+          </label>
+        )
+      } else {
+        return (
+          <label className="option">
+            <span className="title animated fadeIn">
+            <span className="label-bordered">
+            <i class="fas fa-pen-square"></i> Add Review</span>
+             {" " + results.title}</span>
+          </label>
+        )
+      }
+    } else if(results.topics !== undefined){
+      const isTopicNonExistent = results.topics.length == 0
+      if(isTopicNonExistent) {
         return (<label className="option">
           <span className="title animated fadeIn">
             <span className="label-bordered">
@@ -21,7 +47,7 @@ export class Dropdown extends Component {
         return resultsMerged.map(result => {
           //result.title.charAt(0).toUpperCase() + result.title.slice(1)
           const title = result.title
-          var title_split = title.split(this.props.query)
+          var title_split = title.toLowerCase().split(this.props.query.toLowerCase())
           if(title_split[0]) {
             title_split[0] = title_split[0].charAt(0).toUpperCase() + title_split[0].slice(1)
           } else {
@@ -51,13 +77,6 @@ export class Dropdown extends Component {
 
         <div className="aoyue-select animated zoomIn">
           {this.renderDropdownElements(results)}
-
-            <label className="option">
-              <span className="title animated fadeIn"><span className="label-bordered"><i class="far fa-file"></i> Add Resource</span> Linear Algebra Book 1</span>
-            </label>
-            <label className="option">
-              <span className="title animated fadeIn"><span className="label-bordered"><i class="fas fa-pen-square"></i> Add Review</span>  Linear Algebra Book 2</span>
-            </label>
         </div>
 
       </div>

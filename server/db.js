@@ -7,7 +7,8 @@ const gun = Gun({
 })
 
 function hash (string){
-	return crypto.createHmac('sha256', string)
+    return crypto.createHash('sha256')
+                   .update(string, 'utf8')
                    .digest('hex');
 }
 
@@ -21,8 +22,12 @@ module.exports.createTopic = function (name) {
 	);
 }
 
-module.exports.addResource2Topic = function (topicName, title, url) {
+module.exports.addResource2Topic = (topicName, title, url) => {
     let t = gun.get(hash(topicName));
+    t.put({
+        'title': topicName
+    })
+    gun.get('topics').set(t)
     let resourceId = hash(url)
 	let s = gun.get(resourceId).put({
 		title,
@@ -44,13 +49,13 @@ module.exports.addReview2Resource = function (reviewID, resourceID, quality, len
 	);
 	dependencies.forEach((d)=>{
         let t = gun.get(hash(d.topic));
-        if (t) {
-            console.log(d);
-            let s = gun.get('reviews/'+reviewID+'/deps/'+hash(d.topic)).put({
-                weight: d.weight
-            })
-            s.get('topic').put(t);
-            gun.get('reviews/'+reviewID).get('dependencies').set(s);
-        }
+        t.put({
+            'title': d.topic
+        })
+        let s = gun.get('reviews/'+reviewID+'/deps/'+hash(d.topic)).put({
+            weight: d.weight
+        })
+        s.get('topic').put(t);
+        gun.get('reviews/'+reviewID).get('dependencies').set(s);
 	});
 }
