@@ -69,7 +69,7 @@ export async function getReviews(resource_id){
     })
     .then(function(res){
       if(res.data !== undefined){
-        return res.data.reviews
+        return res.data
       } else {
         return ""
       }
