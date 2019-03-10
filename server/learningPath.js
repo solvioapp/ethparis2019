@@ -1,8 +1,8 @@
 const Gun = require('gun')
 const _=require('underscore')
 
-//const gun = Gun()
-//const db = require('./db');
+const gun = Gun()
+const db = require('./db');
 
 function gun2array(obj){
 	return Object.keys(obj).filter((k)=>k!='_');
@@ -20,10 +20,14 @@ function cleanObj(obj){
 async function getTopicDeps(gun, topic){
 	let topicDeps={}
 	let resources = await gun.get(topic).get('resources').once().then();
+	if(resources==undefined){
+		return {topicDeps:{}, finalResources:[]}
+	}
+	console.log(resources)
 	let reviews = await Promise.all(gun2array(resources).map((resKey)=>
 		gun.get(resKey).get('reviews').once().then()
 	));
-	//console.log(reviews)
+	console.log(reviews)
 	let reviewVals = await Promise.all(flatten(reviews).map((reviKey)=>
 		gun.get(reviKey).once().then()
 	));
@@ -37,7 +41,7 @@ async function getTopicDeps(gun, topic){
 		finalResources.push(cleanObj(_.clone(resourceVals[i])))
 		finalResources[i].reviews={length:0, quality:0};
 		if(reviews[i]!=undefined){
-			//console.log(gun2array(reviews[i]))
+			console.log(gun2array(reviews[i]))
 			for(j=0; j<gun2array(reviews[i]).length; j++){
 				//console.log(reviewVals[j+offset])
 				//finalResources[i].reviews.push(cleanObj(_.clone(reviewVals[j+offset])));
@@ -73,7 +77,7 @@ async function getLearningPath(gun, initialTopic, time){
 		weight:1
 	}]
 	let resources=[]
-	while(time>=0 || topics.length==0){
+	while(time>=0 && topics.length>0){
 		let topic=topics[0].topic;
 		//console.log(resources)
 		let stuff=await getTopicDeps(gun, topic)
@@ -99,7 +103,7 @@ async function getLearningPath(gun, initialTopic, time){
 			}
 		})
 		//console.log(stuff.finalResources)
-		let maxim={}
+		let maxim=null
 		let maxVal=0
 		stuff.finalResources.forEach((v)=>{
 			//console.log(v)
@@ -110,17 +114,18 @@ async function getLearningPath(gun, initialTopic, time){
 				maxim=v
 			}
 		})
-
-		resources.push(maxim);
-		time-=maxim.reviews.length;
+		if(maxim){
+			resources.push(maxim);
+			time-=maxim.reviews.length;
+		}
 		topics=topics.slice(1).sort((e1, e2)=>e1.weight<e2.weight);
 		//console.log(topics)
 	}
-	//console.log(resources);
+	console.log(resources);
 	return resources;
 }
 
-//getLearningPath(db.hash('cryptocurrencies'), 70);
+getLearningPath(gun, db.hash('cryptocurrencies'), 100);
 //getTopicDeps('cryptocurrencies');
 
 module.exports.getLearningPath = getLearningPath

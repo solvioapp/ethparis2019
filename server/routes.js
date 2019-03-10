@@ -49,6 +49,39 @@ async function hydrateResource(gun, resource) {
     }
 }
 
+function transformReview(id, review) {
+    var dependencies = []
+    for (var i in review['dependencies']) {
+        var dependency = review['dependencies'][i]
+        dependencies.push({
+            topic: dependency['topic']['title'],
+            weight: dependency['weight']
+        })
+    }  
+
+    return {
+        id: id,
+        content: review['content'],
+        length: review['length'],
+        quality: review['quality'],
+        dependencies: dependencies
+    }
+}
+
+function transformResource(id, resource) {
+    reviews = []
+    for (var i in resource['reviews']) {
+        reviews.push(transformReview(i, resource['reviews'][i]))
+    }
+    return {
+        id: id,
+        title: resource['title'],
+        url: resource['url'],
+        topic: resource['topic']['title'],
+        reviews: reviews
+    }
+}
+
 module.exports.getResource = async (req, res, next) => {
     const resource_id = req.params['resource_id']
     if (!resource_id) return res.status(400).send({'message': 'Invalid resource ID'})
@@ -58,6 +91,7 @@ module.exports.getResource = async (req, res, next) => {
 
     resource = toResponse(resource)
     await hydrateResource(req.gun, resource)
+    resource = transformResource(resource_id, resource)
     res.send(resource)
 }
 
@@ -74,12 +108,15 @@ module.exports.getResources = async (req, res, next) => {
 
     resources = toResponse(resources)
 
-    for (i in resources) {        
+    console.log(resources)
+
+    for (var i in resources) {
         await hydrate(req.gun, resources, i)
         await hydrateResource(req.gun, resources[i])
+        result.push(transformResource(i, resources[i]))
     }
     
-    res.send(resources)
+    res.send(result)
 }
 
 module.exports.getLearningPaths = async (req, res, next) => {
@@ -165,7 +202,7 @@ module.exports.search = async (req, res, next) => {
 
     for (i in topics) {
         await hydrate(req.gun, topics, i)
-        if (matchQuery(q, topics[i]['title'])) {
+        if (topics[i] && matchQuery(q, topics[i]['title'])) {
             result_topics.push({
                 'id': i,
                 'title': topics[i]['title']
