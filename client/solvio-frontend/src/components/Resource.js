@@ -18,8 +18,10 @@ export class Resource extends Component {
 
         const quality = data.quality / 20
 
+        const viewReviewLink = "/resource/"+data.id+"/reviews"
         const addReviewLink = "/resource/"+data.id+"/addReview"
         return (
+          <Link to={viewReviewLink}>
             <div className="resource">
                 <div className="titleAndTopic">
                     <span className="title">{data.title}</span>
@@ -44,6 +46,8 @@ export class Resource extends Component {
                     </div>
                 </div>
             </div>
+            </Link>
+
         );
     }
 }

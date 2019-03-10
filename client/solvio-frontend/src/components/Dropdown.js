@@ -19,7 +19,7 @@ export class Dropdown extends Component {
     const isUrlNonExistent = (results == "empty")
     if(results !== "" && isUrl){
       if(isUrlNonExistent) {
-        const link = "/resource/"+sha256(this.props.query)+"/addResource"
+        const link = "/resource/"+btoa(this.props.query)+"/addResource"
         return (
           <Link to={link}>
             <label className="option">

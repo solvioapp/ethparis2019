@@ -59,8 +59,35 @@ export async function getTopic(topic_id){
     })
 }
 
+export async function getReviews(resource_id){
+  const endpoint = 'http://localhost:8090/resources/'+resource_id
+  console.log(endpoint)
+  return axios.get(endpoint)
+    .catch(function (error) {
+      console.log(error)
+      return ""
+    })
+    .then(function(res){
+      if(res.data !== undefined){
+        return res.data.reviews
+      } else {
+        return ""
+      }
+    })
+}
+
 export async function addResource(resource){
   console.log(resource)
+  const endpoint = 'http://localhost:8090/resources'
+  return axios.post(endpoint, resource)
+  .catch((error) => console.log(error))
+  .then((res) => {
+    if(res.data !== undefined){
+      return res.data
+    } else {
+      return ""
+    }
+  })
 }
 
 export async function submitReview(id, review) {

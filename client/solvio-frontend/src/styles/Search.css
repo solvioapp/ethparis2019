@@ -1,4 +1,12 @@
 
+a:hover {
+  color: #333;
+  text-decoration: none;
+}
+a {
+  color: #333;
+}
+
 #main-title {
   font-weight: bold;
   line-height: 30px;

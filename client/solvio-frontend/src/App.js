@@ -83,7 +83,7 @@ class App extends React.Component {
 						</header>
 						<div className="container">
 							<Route path="/" exact render={props => <SearchView results={this.state.results} updateQuery={(query) => this.updateQuery(query)} />} />
-							<Route path="/resource/:resource_id/addReview" render={({match, history}) => (
+							<Route path="/resource/:id/addReview" render={({match, history}) => (
 								<AddReview
 									id={this.state.resource.id}
 									location={match}
@@ -92,10 +92,9 @@ class App extends React.Component {
 									submitReview={this.submitReview}
 								/>
 							)} />
-							<Route path="/resource/:resource_id/reviews" render={({match}) => (
+							<Route path="/resource/:id/reviews" render={({match}) => (
 								<Reviews
 									location={match}
-									reviews={this.state.resource.reviews}
 								/>
 							)} />
 							<Route path="/topic/:id" render={({match}) => (
@@ -113,9 +112,10 @@ class App extends React.Component {
 									incPathIndex={this.incPathIndex.bind(this)}
 								/>
 							)} />
-							<Route path="/resource/:resource_id/addResource" render={({match}) => (
+							<Route path="/resource/:id/addResource" render={({match, history}) => (
 								<AddResource
 								location={match}
+								history={history}
 								/>
 							)} />
 						</div>
