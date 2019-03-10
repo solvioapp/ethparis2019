@@ -9,6 +9,7 @@ import { SearchView } from './containers/SearchView'
 import { Dropdown } from './components/Dropdown'
 import { FooterView  } from './components/FooterView'
 import { AddReview } from './components/AddReview'
+import { AddResource} from './components/AddResource'
 import { Path } from './components/Path'
 import { Reviews } from './components/Reviews'
 import { Topic } from './components/Topic'
@@ -107,6 +108,11 @@ class App extends React.Component {
 									path={this.state.learningPaths[this.state.pathIndex]}
 									decPathIndex={this.decPathIndex.bind(this)}
 									incPathIndex={this.incPathIndex.bind(this)}
+								/>
+							)} />
+							<Route path="/resource/:resource_id/addResource" render={({match}) => (
+								<AddResource
+								location={match}
 								/>
 							)} />
 						</div>

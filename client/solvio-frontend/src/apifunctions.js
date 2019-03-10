@@ -58,3 +58,7 @@ export async function getTopic(topic_id){
       }
     })
 }
+
+export async function addResource(resource){
+  console.log(resource)
+}

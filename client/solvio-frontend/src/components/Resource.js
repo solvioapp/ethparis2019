@@ -7,7 +7,7 @@ import '../styles/Resource.scss'
 export class Resource extends Component {
     render() {
         const { data, setResource } = this.props
-
+        console.log(data)
         let duration
 
         if (data.length > 60) {
@@ -18,6 +18,7 @@ export class Resource extends Component {
 
         const quality = data.quality / 20
 
+        const addReviewLink = "/resource/"+data.id+"/addReview"
         return (
             <div className="resource">
                 <div className="titleAndTopic">
@@ -34,7 +35,7 @@ export class Resource extends Component {
                         </div>
                     </div>
                     <div className="buttons">
-                        <Link to="/resource/addReview">
+                        <Link to={addReviewLink}>
                             <button className="btn btn-review" onClick={data => setResource({data})}>Review</button>
                         </Link>
                         <a href={data.url} target="_blank">
