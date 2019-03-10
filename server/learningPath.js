@@ -57,7 +57,7 @@ async function getTopicDeps(gun, topic){
 			}
 			console.log('reviews[i]', i, reviews[i])
 			console.log('length', reviews[i].length)
-			offset+=reviews[i].length;
+			offset+=reviews[i].length || 0;
 		}
 	}
 
