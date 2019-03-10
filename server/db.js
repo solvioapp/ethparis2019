@@ -2,9 +2,11 @@ const Gun = require('gun')
 const crypto = require('crypto')
 require('gun/lib/open.js')
 
+/*
 const gun = Gun({
     isValid: function () { return true }
 })
+*/
 
 function hash (string){
     return crypto.createHash('sha256')
@@ -14,7 +16,7 @@ function hash (string){
 
 module.exports.hash = hash
 
-module.exports.createTopic = function (name) {
+module.exports.createTopic = function (gun, name) {
 	gun.get('topics').set(
 		gun.get(hash(name)).put({
 			title: name
@@ -22,7 +24,7 @@ module.exports.createTopic = function (name) {
 	);
 }
 
-module.exports.addResource2Topic = (topicName, title, url) => {
+module.exports.addResource2Topic = (gun, topicName, title, url) => {
     let t = gun.get(hash(topicName));
     t.put({
         'title': topicName
@@ -39,7 +41,7 @@ module.exports.addResource2Topic = (topicName, title, url) => {
     return resourceId
 }
 
-module.exports.addReview2Resource = function (reviewID, resourceID, quality, length, dependencies, content) {
+module.exports.addReview2Resource = function (gun, reviewID, resourceID, quality, length, dependencies, content) {
 	gun.get(resourceID).get('reviews').set(
 		gun.get('reviews/'+reviewID).put({
 			quality,
