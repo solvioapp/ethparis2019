@@ -130,22 +130,32 @@ module.exports.getResources = async (req, res, next) => {
 
 module.exports.getLearningPaths = async (req, res, next) => {
     let topic_id = req.params['topic_id']
-    let length = req.query['length']
+    //let length = req.query['length']    
 
     if (!topic_id) return res.status(400).send({'message': 'Missing topic ID'})
-    if (!length) return res.status(400).send({'message': 'Missing length'})
-    
-    let path = await getLearningPath(req.gun, topic_id, length)
-    let result = []
+    //if (!length) return res.status(400).send({'message': 'Missing length'})
 
-    for (let i in path) {
-        let id = path[i]['_']['#']
-        let resource = await req.gun.get(id).once().then()
-        await hydrateResource(req.gun, resource)
-        result.push(transformResource(id, resource))
-    }    
+    let lengths = [30, 24 * 60, 100 * 60]
 
-    res.send([result])
+    let results = []
+
+    for (let i in lengths) {
+        let length = lengths[i]
+
+        let path = await getLearningPath(req.gun, topic_id, length)
+        let result = []
+
+        for (let i in path) {
+            let id = path[i]['_']['#']
+            let resource = await req.gun.get(id).once().then()
+            await hydrateResource(req.gun, resource)
+            result.push(transformResource(id, resource))
+        }
+
+        results.push(result)
+    }
+
+    res.send(results)
 }
 
 module.exports.getReviews = async (req, res, next) => {    
