@@ -13,16 +13,12 @@ import { Path } from './components/Path'
 import { Reviews } from './components/Reviews'
 import { Topic } from './components/Topic'
 import axios from 'axios'
-import * as statfunctions from './staticfunctions'
-
-import sha256 from 'js-sha256'
+import * as API from './apifunctions';
 
 // Css
 import './styles/styles.scss'
 
 import { defaultPaths, defaultResources, defaultResource } from './defaults'
-
-const MIN_SEARCH_CHARS = 2
 
 
 class App extends React.Component {
@@ -44,50 +40,15 @@ class App extends React.Component {
 		this.setResource = this.setResource.bind(this)
 	}
 
-	updateQuery(query){
+	async updateQuery(query){
 		if(query !== undefined){
 			this.setState({query:query})
-			this.searchRequest(query)
+			const results = await API.searchRequest(query)
+			this.setState({results: results})
 		}
 	}
 
-	searchRequest(query){
-		const requestIsUrl = statfunctions.validURL(query)
-		const self = this
 
-		if(requestIsUrl) {
-		axios.get('http://localhost:8090/resources/'+sha256(query))
-			.catch(function (error) {
-				self.setState({results: "empty"})
-			})
-			.then(function (res) {
-				if(res.status !== undefined
-					 && res.status == 200
-					 && res.data !== undefined){
-					const results = res.data
-					self.setState({results: results})
-				} else {
-					self.setState({results: "empty"})
-				}
-				//var results = res.data.filter(topic => topic.title.trim().includes(query.trim()))
-			});
-		} else if(query.length > MIN_SEARCH_CHARS) {
-			// Make a request for a user with a given ID
-			axios.get('http://localhost:8090/search?q='+query)
-			  .catch(function (error) {
-			    console.log(error);
-			  })
-			  .then(function (res) {
-					if(res.data !== undefined) {
-						const results = res.data
-						self.setState({results: results})
-					}
-			  });
-			} else {
-				self.setState({results: ""})
-			}
-
-	}
 
 	decPathIndex() {
 		if (this.state.pathIndex !== 0) {
@@ -121,18 +82,21 @@ class App extends React.Component {
 						</header>
 						<div className="container">
 							<Route path="/" exact render={props => <SearchView results={this.state.results} updateQuery={(query) => this.updateQuery(query)} />} />
-							<Route path="/resource/addReview" render={() => (
+							<Route path="/resource/:resource_id/addReview" render={({match}) => (
 								<AddReview
+									location={match}
 									resourceID={this.state.resource.id}
 								/>
 							)} />
-							<Route path="/resource/reviews" render={() => (
+							<Route path="/resource/:resource_id/reviews" render={({match}) => (
 								<Reviews
+									location={match}
 									reviews={this.state.resource.reviews}
 								/>
 							)} />
-							<Route path="/topic" render={() => (
+							<Route path="/topic/:id" render={({match}) => (
 								<Topic
+									location={match}
 									setResource={this.setResource}
 									resources={this.state.resources}
 								/>

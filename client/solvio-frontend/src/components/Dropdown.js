@@ -31,7 +31,7 @@ export class Dropdown extends Component {
           </Link>
         )
       } else {
-        const link = "/resource/"+sha256(this.props.query)+"/addReview"
+        const link = "/resource/"+sha256(this.props.query)+"/reviews"
         return (
           <Link to={link}>
             <label className="option">
