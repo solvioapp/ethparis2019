@@ -55,6 +55,11 @@ app.use(function (req, res, next) {
     next()
 })
 
+app.use(function (req, res, next) {
+    console.log(req.method + " " + req.url)
+    next()
+})
+
 app.get('/topics', routes.getTopics)
 app.get('/resources/:resource_id', routes.getResource)
 app.get('/resources/:resource_id/reviews', routes.getReviews)

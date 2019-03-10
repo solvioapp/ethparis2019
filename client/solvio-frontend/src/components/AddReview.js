@@ -108,7 +108,7 @@ export class AddReview extends Component {
             }, (res) => {
                 console.log('res', res)
             })
-        await submitReview(this.props.id, hash, review)
+        await submitReview(this.props.location.params.id, hash, review)
     }
 
     render() {
