@@ -1,8 +1,8 @@
 const Gun = require('gun')
 const _=require('underscore')
 
-const gun = Gun()
-const db = require('./db');
+//const gun = Gun()
+//const db = require('./db');
 
 function gun2array(obj){
 	return Object.keys(obj).filter((k)=>k!='_');
@@ -125,7 +125,7 @@ async function getLearningPath(gun, initialTopic, time){
 	return resources;
 }
 
-getLearningPath(gun, db.hash('cryptocurrencies'), 100);
+//getLearningPath(gun, db.hash('cryptocurrencies'), 100);
 //getTopicDeps('cryptocurrencies');
 
 module.exports.getLearningPath = getLearningPath
