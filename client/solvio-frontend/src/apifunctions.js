@@ -4,8 +4,8 @@ import sha256 from 'js-sha256'
 
 const MIN_SEARCH_CHARS = 2
 
-const API_HOST = 'http://localhost:8090'
-//const API_HOST = 'http://178.62.16.66:8090'
+//const API_HOST = 'http://localhost:8090'
+const API_HOST = 'http://178.62.16.66:8090'
 
 export async function searchRequest(query){
   const requestIsUrl = statfunctions.validURL(query)
