@@ -34,7 +34,8 @@ export class Reviews extends Component {
         const link = "/resource/"+resource.id+"/addReview"
         return (
             <div style={{textAlign:"center"}}>
-            <a href={resource.url} target="_blank"><h3>{resource.title}</h3></a>
+            <h3>Resource Inspector</h3>
+            <a href={resource.url} target="_blank"><p>{resource.title}</p></a>
             <Link to={link}><button className="btn-submit"> Add Review </button></Link>
                 {reviews.map(review => (
                     <Review data={review} />

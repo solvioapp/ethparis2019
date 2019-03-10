@@ -9,7 +9,7 @@ export class Review extends Component {
         let duration
 
         if (data.length > 60) {
-            duration = Math.floor(data.length / 60) 
+            duration = Math.floor(data.length / 60)
             if (duration === 1) {
                 duration += ' hour'
             } else {

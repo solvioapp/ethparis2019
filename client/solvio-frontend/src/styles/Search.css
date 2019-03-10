@@ -7,6 +7,11 @@ a {
   color: #333;
 }
 
+
+.resourceTitle {
+  font-weight: bold
+}
+
 #main-title {
   font-weight: bold;
   line-height: 30px;

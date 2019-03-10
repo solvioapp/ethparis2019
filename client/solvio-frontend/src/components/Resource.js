@@ -26,7 +26,7 @@ export class Resource extends Component {
           <Link to={viewReviewLink}>
             <div className="resource">
                 <div className="titleAndTopic">
-                    <span className="title">{data.title}</span>
+                    <span className="resourceTitle">{data.title}</span>
                     <span ref="description" className="topic">{data.topic}</span>
                 </div>
                 <div className="right">

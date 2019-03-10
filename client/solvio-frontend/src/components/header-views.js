@@ -17,10 +17,10 @@ export const PanelView = ( { children, visible, toggle, name, logo, action } ) =
 			    <span className = "hamburger-inner"></span>
 			  </span>
 			</button>
-			<nav className = { visible ? 'full absolute-show' : 'full absolute-out-right' } >
+			{(visible) ? (<nav className = { visible ? 'full absolute-show' : 'full absolute-out-right' } >
 				<h3 className = "depth" id = "menutitle" >{ action }</h3>
 				{ children }
-			</nav>
+			</nav>) : ""}
 		</span>
 	)
 }

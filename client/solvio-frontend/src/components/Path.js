@@ -25,19 +25,14 @@ export class Path extends Component {
         var { setResource } = this.props
         var paths = this.state.resources
         const path = (paths.length > 0) ? paths[0] : []
-  
+
         return (
-            <div className="flex">
+            <div>
                 <div>
-                    <button className="button" onClick={this.props.decPathIndex}> <strong> &lt; </strong> </button>
-                </div>
-                <div>
+                <h3 style={{textAlign:"center"}}>Learning path</h3>
                 {path.map((resource, i) => (
                     <Resource key={i} data={resource} setResource={setResource} />
                 ))}
-                </div>
-                <div>
-                    <button className="button" onClick={this.props.incPathIndex}> <strong> &gt; </strong> </button>
                 </div>
             </div>
         );

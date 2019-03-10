@@ -79,7 +79,7 @@ class App extends React.Component {
 				<Router>
 					<div>
 						<header>
-							<Panel />
+						  <Panel />
 							<HeaderView
 								id="header"
 								title="Solvio Learn"
@@ -124,9 +124,9 @@ class App extends React.Component {
 							)} />
 
 							<Route path="/profile" render={() => (
-								<Profile 
-									topicsLearned={this.state.topicsLearned} 
-									results={this.state.results} 
+								<Profile
+									topicsLearned={this.state.topicsLearned}
+									results={this.state.results}
 									updateQuery={(query) => this.updateQuery(query)}
 								/>
 							)}/>

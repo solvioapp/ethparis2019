@@ -115,6 +115,7 @@ export class AddReview extends Component {
         return (
             <div className="form-container">
                 <div className="form-review">
+                <h3 style={{textAlign: "center"}}>Add Review</h3>
                     <div className="form-field">
                         <h3>Topic</h3>
                         <p>Which topic does the resource address?</p>
