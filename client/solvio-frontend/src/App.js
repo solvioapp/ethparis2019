@@ -13,13 +13,15 @@ import { AddResource} from './components/AddResource'
 import { Path } from './components/Path'
 import { Reviews } from './components/Reviews'
 import { Topic } from './components/Topic'
+import { MoreInfo } from './components/MoreInfo'
+import { Profile } from './components/Profile'
 import axios from 'axios'
 import * as API from './apifunctions';
 
 // Css
 import './styles/styles.scss'
 
-import { defaultPaths, defaultResources, defaultResource } from './defaults'
+import { defaultPaths, defaultResources, defaultResource, defaultTopics } from './defaults'
 
 
 class App extends React.Component {
@@ -36,6 +38,8 @@ class App extends React.Component {
 			resources: defaultResources,
 			// For resource
 			resource: defaultResource,
+			// For profile
+			topicsLearned: defaultTopics
 		}
 
 		this.setResource = this.setResource.bind(this)
@@ -83,11 +87,10 @@ class App extends React.Component {
 						</header>
 						<div className="container">
 							<Route path="/" exact render={props => <SearchView results={this.state.results} updateQuery={(query) => this.updateQuery(query)} />} />
-							<Route path="/resource/:id/addReview" render={({match, history}) => (
+							<Route path="/resource/:id/addReview" render={({match}) => (
 								<AddReview
 									id={this.state.resource.id}
 									location={match}
-									history={history}
 									resourceID={this.state.resource.id}
 									submitReview={this.submitReview}
 								/>
@@ -119,6 +122,18 @@ class App extends React.Component {
 								history={history}
 								/>
 							)} />
+
+							<Route path="/profile" render={() => (
+								<Profile 
+									topicsLearned={this.state.topicsLearned} 
+									results={this.state.results} 
+									updateQuery={(query) => this.updateQuery(query)}
+								/>
+							)}/>
+
+							<Route path="/more-info" render={() => (
+								<MoreInfo />
+							)}/>
 						</div>
 					</div>
 				</Router>

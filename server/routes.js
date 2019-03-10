@@ -143,7 +143,7 @@ module.exports.getLearningPaths = async (req, res, next) => {
         let resource = await req.gun.get(id).once().then()
         await hydrateResource(req.gun, resource)
         result.push(transformResource(id, resource))
-    }
+    }    
 
     res.send([result])
 }

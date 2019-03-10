@@ -152,3 +152,12 @@
   width: 10% !important;  
   margin-right: 25px;
 }
+
+.profile {
+  display: flex;
+  flex-direction: column
+}
+
+.searchWrapper {
+  height: 100px;
+}

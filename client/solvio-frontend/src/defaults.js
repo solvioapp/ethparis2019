@@ -51,6 +51,11 @@ const rev3 = {
     dependencies: [{ topic: "K-EVM", weight: 88}, { topic: "K", weight: 20}],
     content: "Amazing"
 }
+
+const t1 = { id: '1', title: 'Cryptography' }
+const t2 = { id: '2', title: 'Distributed systems' }
+const t3 = { id: '3', title: 'Ethereum' }
+
 export const defaultPaths = [
     [res1, res2, res3], 
     [res3, res1], 
@@ -61,3 +66,4 @@ const defaultReviews = [rev1, rev2, rev3]
 
 export const defaultResource = {id: "1", reviews: defaultReviews}
 export const defaultResources = [res1, res2, res3]
+export const defaultTopics = [t1, t2, t3]

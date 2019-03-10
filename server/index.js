@@ -24,7 +24,7 @@ const server = require('http').createServer((req, res) => {
     res.end()
 })
 */
-  
+
 
 app.use(Gun.serve)
 
@@ -53,13 +53,13 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 
-app.use(function (req, res, next) {    
+app.use(function (req, res, next) {
     req.gun = gun
     next()
 })
 
 app.use(function (req, res, next) {
-    console.log(req.url)
+    console.log(req.method + " " + req.url)
     next()
 })
 
