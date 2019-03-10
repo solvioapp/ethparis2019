@@ -76,7 +76,7 @@ function calculateAvg(reviews, field) {
     let sum = reviews.reduce((total, currentValue, currentIndex, arr) => {
         return total + currentValue[field]
     }, 0)    
-    return sum/reviews.length
+    return reviews.length ? sum/reviews.length : 0
 }
 
 function transformResource(id, resource) {
