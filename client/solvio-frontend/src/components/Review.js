@@ -85,9 +85,10 @@ export class Review extends Component {
                                     <p className="dependencies">{dep.topic}</p>
                                     <p className="dependencies">{dep.weight}</p>
                                 </span>
-                                <button className="btn btn-challenge" onClick={this.challenge.bind(this)}>Challenge</button>
                             </div>
                         ))}
+                        <button className="btn btn-challenge" onClick={this.challenge.bind(this)}>Challenge</button>
+
                     </div>
                 </div>
             </div>
