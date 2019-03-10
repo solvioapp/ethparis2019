@@ -86,7 +86,8 @@
 }
 
 .title-dep {
-  font-size: 20px;
+  font-size: 15px;
+  font-weight: bold !important;
   margin-top: 5px;
 }
 
@@ -166,4 +167,8 @@
   width: 700px;
   margin: 50px auto;
   padding: 50px 0;
+}
+
+.btn-challenge {
+  background-color: #f99215;
 }

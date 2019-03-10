@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Input from '@material-ui/core/Input';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 
-import { submitReview, submit } from '../apifunctions'
+import { submitReview } from '../apifunctions'
 
 import web3 from 'web3'
 import sha256 from 'js-sha256'
