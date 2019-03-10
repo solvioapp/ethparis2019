@@ -90,7 +90,6 @@ export async function addResource(resource){
   })
 }
 
-export async function submitReview(id, review) {
-  const hash = sha256(review)
+export async function submitReview(id, hash, review) {
   return axios.post(`http://localhost:8090/resources/${id}/reviews/${hash}`, review)
 }

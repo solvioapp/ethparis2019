@@ -35,22 +35,28 @@ async function getTopicDeps(gun, topic){
 	let resourceVals = await Promise.all(gun2array(resources).map((resKey)=>
 		gun.get(resKey).once().then()
 	));
+	console.log('reviewVals', reviewVals)
+	console.log('reviews', reviews)
 	let offset=0;
 	let finalResources=[]
 	for(i=0; i<resourceVals.length; i++){
 		finalResources.push(cleanObj(_.clone(resourceVals[i])))
 		finalResources[i].reviews={length:0, quality:0};
 		if(reviews[i]!=undefined){
-			console.log(gun2array(reviews[i]))
+			//console.log(gun2array(reviews[i]))
 			for(j=0; j<gun2array(reviews[i]).length; j++){
 				//console.log(reviewVals[j+offset])
-				//finalResources[i].reviews.push(cleanObj(_.clone(reviewVals[j+offset])));
-				finalResources[i].reviews={
-					length: finalResources[i].reviews.length+reviewVals[j+offset].length/gun2array(reviews[i]).length,
-					quality: finalResources[i].reviews.quality+reviewVals[j+offset].quality/gun2array(reviews[i]).length
-				};
+				//finalResources[i].reviews.push(cleanObj(_.clone(reviewVals[j+offset])));				
+				console.log('reviewVals[]', j, offset, reviewVals[j+offset])
+					finalResources[i].reviews={
+						length: finalResources[i].reviews.length+reviewVals[j+offset].length/gun2array(reviews[i]).length,
+						quality: finalResources[i].reviews.quality+reviewVals[j+offset].quality/gun2array(reviews[i]).length
+					};
+				
 
 			}
+			console.log('reviews[i]', i, reviews[i])
+			console.log('length', reviews[i].length)
 			offset+=reviews[i].length;
 		}
 	}
@@ -71,7 +77,8 @@ async function getTopicDeps(gun, topic){
 
 
 
-async function getLearningPath(gun, initialTopic, time){
+async function getLearningPath(gun, initialTopic, time){	
+	console.log(await gun.get('reviews/14001').once().then())
 	let topics=[{
 		topic:initialTopic,
 		weight:1
@@ -121,7 +128,6 @@ async function getLearningPath(gun, initialTopic, time){
 		topics=topics.slice(1).sort((e1, e2)=>e1.weight<e2.weight);
 		//console.log(topics)
 	}
-	console.log(resources);
 	return resources;
 }
 

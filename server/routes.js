@@ -41,9 +41,7 @@ module.exports.getTopics = async (req, res, next) => {
 
 async function hydrateResource(gun, resource) {
     await hydrate(gun, resource, 'topic')
-    await hydrateSet(gun, resource, 'reviews')
-
-    console.log(resource['reviews'])
+    await hydrateSet(gun, resource, 'reviews')    
 
     for (review_id in resource['reviews']) {
         await hydrateSet(gun, resource['reviews'][review_id], 'dependencies')
@@ -76,7 +74,7 @@ function calculateAvg(reviews, field) {
     let sum = reviews.reduce((total, currentValue, currentIndex, arr) => {
         return total + currentValue[field]
     }, 0)    
-    return sum/reviews.length
+    return reviews.length ? sum/reviews.length : 0
 }
 
 function transformResource(id, resource) {
@@ -119,9 +117,7 @@ module.exports.getResources = async (req, res, next) => {
 
     let result = []
 
-    resources = toResponse(resources)
-
-    console.log(resources)
+    resources = toResponse(resources)    
 
     for (var i in resources) {
         await hydrate(req.gun, resources, i)
