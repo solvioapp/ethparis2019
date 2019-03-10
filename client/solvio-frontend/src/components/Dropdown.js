@@ -73,7 +73,7 @@ export class Dropdown extends Component {
               <label className="option">
               <span className="dropdown-title animated fadeIn">
               <span className="label-bordered">
-                <i class="fab fa-leanpub"></i> {(result.type == "topic") ? "Learn" : "Add Review" }
+                <i className="fab fa-leanpub"></i> {(result.type == "topic") ? "Learn" : "Add Review" }
                 </span>
               &nbsp;{title_split[0]}<span style={{fontWeight:"bold"}}>{title_query}</span>{title_split[1]}
               </span>

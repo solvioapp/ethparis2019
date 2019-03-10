@@ -11,7 +11,9 @@ export class Panel extends React.Component {
 		this.state = {
 			visible: false,
 			menuLinks: [
-				{ name: 'Home', link: '/' }
+				{ name: 'Home', link: '/' },
+				{ name: 'More info', link: '/about' },
+				{ name: 'Profile', link: '/profile'}
 			]
 		}
 
