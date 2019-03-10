@@ -7,6 +7,7 @@ import '../styles/Resource.scss'
 export class Resource extends Component {
     render() {
         const { data, setResource } = this.props
+        console.log("data")
         console.log(data)
         let duration
 
@@ -21,6 +22,7 @@ export class Resource extends Component {
         const viewReviewLink = "/resource/"+data.id+"/reviews"
         const addReviewLink = "/resource/"+data.id+"/addReview"
         return (
+          <div>
           <Link to={viewReviewLink}>
             <div className="resource">
                 <div className="titleAndTopic">
@@ -47,7 +49,7 @@ export class Resource extends Component {
                 </div>
             </div>
             </Link>
-
+            </div>
         );
     }
 }

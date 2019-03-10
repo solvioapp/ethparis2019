@@ -93,3 +93,19 @@ export async function addResource(resource){
 export async function submitReview(id, hash, review) {
   return axios.post(`http://localhost:8090/resources/${id}/reviews/${hash}`, review)
 }
+
+export async function getLearningPath(topic_id){
+  const endpoint = 'http://localhost:8090/topics/'+topic_id+'/learning_paths?length=100'
+  return axios.get(endpoint)
+    .catch(function (error) {
+      console.log(error)
+      return ""
+    })
+    .then(function(res){
+      if(res.data !== undefined){
+        return res.data
+      } else {
+        return ""
+      }
+    })
+}

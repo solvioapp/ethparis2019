@@ -13,7 +13,7 @@ export class Dropdown extends Component {
     console.log("results")
 
     console.log(results)
-    var title_query = this.props.query.toLowerCase().trim()
+    var title_query = this.props.query
 
     const isUrl = statfunctions.validURL(title_query)
     const isUrlNonExistent = (results == "empty")
@@ -67,13 +67,15 @@ export class Dropdown extends Component {
           } else {
             title_query = title_query.charAt(0).toUpperCase() + title_query.slice(1)
           }
-          const link = "/topic/"+result.id
+          console.log(result)
+          const link = (result.type == "topic") ? "/path/"+result.id : "/resource/"+result.id+"/reviews"
+          const faicon = (result.type == "topic") ? "fab fa-leanpub" : "fas fa-pen-square"
           return (
             <Link to={link}>
               <label className="option">
               <span className="dropdown-title animated fadeIn">
               <span className="label-bordered">
-                <i class="fab fa-leanpub"></i> {(result.type == "topic") ? "Learn" : "Add Review" }
+                <i class={faicon}></i> {(result.type == "topic") ? "Learn" : "Add Review" }
                 </span>
               &nbsp;{title_split[0]}<span style={{fontWeight:"bold"}}>{title_query}</span>{title_split[1]}
               </span>

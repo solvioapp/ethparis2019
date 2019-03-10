@@ -104,12 +104,13 @@ class App extends React.Component {
 									resources={this.state.resources}
 								/>
 							)} />
-							<Route path="/paths" render={() => (
+							<Route path="/path/:id" render={({match}) => (
 								<Path
 									setResource={this.setResource}
-									path={this.state.learningPaths[this.state.pathIndex]}
+									location={match}
+									/*path={this.state.learningPaths[this.state.pathIndex]}
 									decPathIndex={this.decPathIndex.bind(this)}
-									incPathIndex={this.incPathIndex.bind(this)}
+									incPathIndex={this.incPathIndex.bind(this)}*/
 								/>
 							)} />
 							<Route path="/resource/:id/addResource" render={({match, history}) => (
