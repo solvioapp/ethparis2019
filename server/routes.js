@@ -41,9 +41,7 @@ module.exports.getTopics = async (req, res, next) => {
 
 async function hydrateResource(gun, resource) {
     await hydrate(gun, resource, 'topic')
-    await hydrateSet(gun, resource, 'reviews')
-
-    console.log(resource['reviews'])
+    await hydrateSet(gun, resource, 'reviews')    
 
     for (review_id in resource['reviews']) {
         await hydrateSet(gun, resource['reviews'][review_id], 'dependencies')
@@ -119,9 +117,7 @@ module.exports.getResources = async (req, res, next) => {
 
     let result = []
 
-    resources = toResponse(resources)
-
-    console.log(resources)
+    resources = toResponse(resources)    
 
     for (var i in resources) {
         await hydrate(req.gun, resources, i)
