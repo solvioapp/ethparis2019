@@ -17,6 +17,7 @@ db.addResource2Topic('K', 'K Tutorial', 'https://github.com/kframework/k/tree/ma
 db.addResource2Topic('K-EVM', 'Formal Verification Workshop 1', 'https://www.youtube.com/watch?v=d6qHxDIeFw0')
 db.addResource2Topic('Formal verification of smart contracts using K', 'Formal Verification Workshop 2', 'https://www.youtube.com/watch?v=n6AgBIkHlhg')
 db.addResource2Topic('proof of stake', 'A Proof of Stake Design Philosophy', 'https://medium.com/@VitalikButerin/a-proof-of-stake-design-philosophy-506585978d51')
+db.addResource2Topic('public key cryptography', 'Asymmetric Cryptography and Key Management', 'https://www.coursera.org/learn/asymmetric-crypto')
 
 let bitcoinResourceId = db.hash('https://bitcoin.org/bitcoin.pdf')
 
@@ -45,6 +46,8 @@ db.addReview2Resource(1338,bitcoinResourceId, 8, 90, [
 		weight: 5
 	}
 ], 'ETH giveaway');
+
+db.addReview2Resource(1339, db.hash('https://www.coursera.org/learn/asymmetric-crypto'), 8, 120, [], 'This is quite a good course')
 
 
 /*

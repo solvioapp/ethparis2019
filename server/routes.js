@@ -9,8 +9,10 @@ function toResponse(obj) {
 }
 
 async function hydrate(gun, node, property) {
-    let value = await gun.get(node[property]['#']).then()
-    node[property] = toResponse(value)
+    if (node[property] && node[property]['#']) {
+        let value = await gun.get(node[property]['#']).then()
+        node[property] = toResponse(value)
+    }
 }
 
 async function hydrateSet(gun, node, property) {
@@ -41,6 +43,8 @@ async function hydrateResource(gun, resource) {
     await hydrate(gun, resource, 'topic')
     await hydrateSet(gun, resource, 'reviews')
 
+    console.log(resource['reviews'])
+
     for (review_id in resource['reviews']) {
         await hydrateSet(gun, resource['reviews'][review_id], 'dependencies')
         for (dependency_id in resource['reviews'][review_id]['dependencies']) {
@@ -68,6 +72,13 @@ function transformReview(id, review) {
     }
 }
 
+function calculateAvg(reviews, field) {
+    let sum = reviews.reduce((total, currentValue, currentIndex, arr) => {
+        return total + currentValue[field]
+    }, 0)    
+    return sum/reviews.length
+}
+
 function transformResource(id, resource) {
     reviews = []
     for (var i in resource['reviews']) {
@@ -78,6 +89,8 @@ function transformResource(id, resource) {
         title: resource['title'],
         url: resource['url'],
         topic: resource['topic']['title'],
+        length: calculateAvg(reviews, 'length'),
+        quality: calculateAvg(reviews, 'quality'),
         reviews: reviews
     }
 }
@@ -127,8 +140,16 @@ module.exports.getLearningPaths = async (req, res, next) => {
     if (!length) return res.status(400).send({'message': 'Missing length'})
     
     let path = await getLearningPath(req.gun, topic_id, length)
+    let result = []
 
-    res.send([path])
+    for (let i in path) {
+        let id = path[i]['_']['#']
+        let resource = await req.gun.get(id).once().then()
+        await hydrateResource(req.gun, resource)
+        result.push(transformResource(id, resource))
+    }
+
+    res.send([result])
 }
 
 module.exports.getReviews = async (req, res, next) => {    

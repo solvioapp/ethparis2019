@@ -13,7 +13,7 @@ function flatten(arr){
 }
 
 function cleanObj(obj){
-	delete obj['_'];
+	//delete obj['_'];
 	return obj;
 }
 
