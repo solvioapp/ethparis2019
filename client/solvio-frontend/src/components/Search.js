@@ -26,16 +26,19 @@ export class Search extends React.Component {
     render() {
         return (
           <div id="Search">
-            <form>
-                <div className="search_wrapper">
+´                <div className="search_wrapper">
                   <input className="input"
                       id="SearchBox"
                       placeholder="Solvio for ..."
                       value={this.state.query}
+                      onKeyPress={event => {
+                        if (event.key === 'Enter') {
+                          this.props.onPress(event)
+                        }
+                      }}
                       onChange={(e) => this.handleChange(e)} />
                   <span className="underline"></span>
                 </div>
-            </form>
           </div>
         )
     }

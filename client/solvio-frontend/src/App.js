@@ -86,7 +86,7 @@ class App extends React.Component {
 							/>
 						</header>
 						<div className="container">
-							<Route path="/" exact render={props => <SearchView results={this.state.results} updateQuery={(query) => this.updateQuery(query)} />} />
+							<Route path="/" exact render={props => <SearchView onPress={() => console.log("Enter pressed")} results={this.state.results} updateQuery={(query) => this.updateQuery(query)} />} />
 							<Route path="/resource/:id/addReview" render={({match, history}) => (
 								<AddReview
 									id={this.state.resource.id}

@@ -7,18 +7,37 @@ import '../styles/Resource.scss'
 
 export class Profile extends Component {
 
-    render() {
+    constructor(props){
+      super(props)
+      this.state = {
+        topicsLearned: this.props.topicsLearned
+      }
+    }
 
-        const { topicsLearned, results, updateQuery } = this.props
+    onPress(e){
+      e.preventDefault()
+      const value = e.target.value
+      console.log(value)
+      const self = this
+      this.setState({
+        topicsLearned: [].concat([{id:999, title: value}], self.state.topicsLearned)
+      })
+    }
+
+    render() {
+        var { topicsLearned, results, updateQuery } = this.props
+        topicsLearned = this.state.topicsLearned
+        console.log(topicsLearned)
         return (
             <div className="profile">
-                <div className="searchWrapper">
-                    <SearchView results={results} updateQuery={updateQuery} />
+                <div className="searchWrapper profileWrapper">
+                    <SearchView onPress={(e) => this.onPress(e)} results={results} updateQuery={updateQuery} />
                 </div>
-                {topicsLearned.map(topic => (
-                    <TopicSmall title={topic.title} id={topic.id}/>
+                <div id="customBoxes">
+                {topicsLearned.map((topic,i) => (
+                  <div className="customBox">{topic.title}</div>
                 ))}
-
+                </div>
             </div>
         );
     }

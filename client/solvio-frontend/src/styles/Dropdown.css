@@ -12,7 +12,7 @@
   overflow: hidden;
   display: block;
   margin: auto;
-  margin-top: 150px;
+  margin-top: 80px;
   width: 400px;
   height: 100%;
   border-bottom: 0px;
@@ -20,7 +20,7 @@
   font-size: 12px;
   box-shadow: 0px 1em 2em -1.5em rgba(0, 0, 0, 0.5);
   color: #777;
-
+  z-index: 5;
 }
 
 .aoyue-select .dropdown-title,
@@ -37,7 +37,7 @@
 .aoyue-select > input {
   position: absolute;
   left: 0px;
-  z-index: 1;
+  z-index: 4;
   width: 100%;
   height: 100%;
   display: block;
@@ -47,7 +47,7 @@
 
 .aoyue-select > span.placeholder {
   position: relative;
-  z-index: 0;
+  z-index: 3;
   display: inline-block;
   width: 100%;
   color: #777;
@@ -56,7 +56,7 @@
 .aoyue-select label.option {
   display: block;
   overflow: hidden;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
 /*  transition: all 1s ease-out;*/
 }
@@ -71,7 +71,7 @@
 .aoyue-select label.option span.dropdown-title:hover {
   color: #000;
   font-weight: bold;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 1.0);
   box-shadow: inset 0px 1px 0px rgba(0, 0, 0, 0.1);
 }
 .aoyue-select label.option input {
@@ -80,7 +80,6 @@
 .aoyue-select label.option input:checked ~ span.dropdown-title {
   position: absolute;
   display: block;
-  z-index: 3;
   font-size: 12px;
   background: #fff;
   border-top: 0px;

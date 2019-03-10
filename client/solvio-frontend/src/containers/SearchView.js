@@ -23,7 +23,7 @@ export class SearchView extends Component {
       console.log(this.props)
         return (
             <div id="SearchView">
-              <Search updateQuery={(query) => this.updateQuery(query)}/>
+              <Search onPress={(e) => this.props.onPress(e)} updateQuery={(query) => this.updateQuery(query)}/>
               {(queryDefined) ? (<Dropdown results={this.props.results} query={this.state.query}/>) : ""}
             </div>
 

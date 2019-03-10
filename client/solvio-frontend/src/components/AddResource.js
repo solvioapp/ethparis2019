@@ -40,6 +40,7 @@ export class AddResource extends Component {
             <div className="form-container">
              <form method="post" onSubmit={(e) => this.handleSubmit(e)}>
                 <div className="form-review">
+                <h3 style={{textAlign:"center"}}>Add Resource</h3>
                     <div className="form-field">
                         <h3>Url</h3>
                         <Input placeholder="url"
