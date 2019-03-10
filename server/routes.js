@@ -181,7 +181,7 @@ module.exports.postResource = async (req, res, next) => {
     if (!title) return res.status(400).send({'message': 'Missing title'})
     if (!url) return res.status(400).send({'message': 'Missing url'})
 
-    let resourceId = db.addResource2Topic(topic, title, url)
+    let resourceId = db.addResource2Topic(req.gun, topic, title, url)
 
     res.status(200).send({'id': resourceId})
 }
@@ -200,7 +200,7 @@ module.exports.postReview = async (req, res, next) => {
     if (!dependencies) return res.status(400).send({'message': 'Missing dependencies'})
     if (!content) return res.status(400).send({'message': 'Missing content'})
 
-    db.addReview2Resource(review_id, resource_id, quality, length, dependencies, content)
+    db.addReview2Resource(req.gun, review_id, resource_id, quality, length, dependencies, content)
 
     res.sendStatus(204)
 }

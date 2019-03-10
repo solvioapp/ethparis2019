@@ -6,6 +6,7 @@ const cors = require('cors')
 const routes = require('./routes')
 const app = express()
 const bodyParser = require('body-parser')
+const nocache = require('nocache')
 
 function validate(msg) {
     // TODO
@@ -28,6 +29,8 @@ const server = require('http').createServer((req, res) => {
 app.use(Gun.serve)
 
 app.use(cors())
+
+app.use(nocache())
 
 
 const port = process.env.PORT || 8090
@@ -52,6 +55,11 @@ app.use(bodyParser.urlencoded({
 
 app.use(function (req, res, next) {    
     req.gun = gun
+    next()
+})
+
+app.use(function (req, res, next) {
+    console.log(req.url)
     next()
 })
 
