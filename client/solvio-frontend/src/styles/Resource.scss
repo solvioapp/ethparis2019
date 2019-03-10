@@ -93,6 +93,10 @@
 
 .dependencies {
   font-size: 15px;
+  width: 90px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .flex {

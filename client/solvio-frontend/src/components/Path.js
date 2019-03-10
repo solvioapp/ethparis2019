@@ -27,14 +27,23 @@ export class Path extends Component {
         const path = (paths.length > 0) ? paths[paths.length - 1] : []
 
         return (
+          <div>
+            <h3 style={{ textAlign: "center" }}>Learning path</h3>
+
+          <div className="flex">
             <div>
-                <div>
-                <h3 style={{textAlign:"center"}}>Learning path</h3>
-                {path.map((resource, i) => (
-                    <Resource key={i} data={resource} setResource={setResource} />
-                ))}
-                </div>
+              <button className="button" onClick={this.props.decPathIndex}> <strong> &lt; </strong> </button>
             </div>
+            <div>
+                {path.map((resource, i) => (
+                  <Resource key={i} data={resource} setResource={setResource} />
+                ))}
+              </div>
+            <div>
+              <button className="button" onClick={this.props.incPathIndex}> <strong> &gt; </strong> </button>
+            </div>
+          </div>
+          </div>
         );
     }
 }
