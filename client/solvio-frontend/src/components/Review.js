@@ -7,7 +7,7 @@ import web3 from 'web3'
 import { challengeReview } from '../apifunctions'
 
 const reviewControllerAbi = require('./ReviewController').abi
-const reviewControllerAddress = '0xaB3F66C8C39e0DE9db45400EEDe08237FCBdA779'
+const reviewControllerAddress = '0xcda376b1d49cec896778b7099fb7754bc4bc883f'
 
 export class Review extends Component {
 
