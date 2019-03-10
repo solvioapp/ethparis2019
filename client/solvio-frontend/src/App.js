@@ -43,9 +43,9 @@ class App extends React.Component {
 
 	async updateQuery(query){
 		if(query !== undefined){
-			this.setState({query:query})
+			this.setState({ query })
 			const results = await API.searchRequest(query)
-			this.setState({results: results})
+			this.setState({ results })
 		}
 	}
 
@@ -83,10 +83,13 @@ class App extends React.Component {
 						</header>
 						<div className="container">
 							<Route path="/" exact render={props => <SearchView results={this.state.results} updateQuery={(query) => this.updateQuery(query)} />} />
-							<Route path="/resource/:resource_id/addReview" render={({match}) => (
+							<Route path="/resource/:resource_id/addReview" render={({match, history}) => (
 								<AddReview
+									id={this.state.resource.id}
 									location={match}
+									history={history}
 									resourceID={this.state.resource.id}
+									submitReview={this.submitReview}
 								/>
 							)} />
 							<Route path="/resource/:resource_id/reviews" render={({match}) => (

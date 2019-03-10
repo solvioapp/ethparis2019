@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Input from '@material-ui/core/Input';
 
+import { submitReview, submit } from '../apifunctions'
+
 export class AddReview extends Component {
     constructor(props){
         super(props)
@@ -61,6 +63,13 @@ export class AddReview extends Component {
         }))
     }
 
+    async submit() {
+        // Call metamask
+        // If successful:
+        await submitReview(this.props.id, this.state)
+        this.props.history.push('/')
+    }
+
     render() {
         return (
             <div className="form-container">
@@ -108,7 +117,7 @@ export class AddReview extends Component {
                         <Input className="form-textbox"/>
                     </div>
                     <div className="form-submit">
-                        <button className="btn-submit"> Submit </button>
+                        <button className="btn-submit" onClick={this.submit}> Submit </button>
                     </div>
                 </div>
             </div>

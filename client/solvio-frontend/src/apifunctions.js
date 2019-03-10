@@ -62,3 +62,8 @@ export async function getTopic(topic_id){
 export async function addResource(resource){
   console.log(resource)
 }
+
+export async function submitReview(id, review) {
+  const hash = sha256(review)
+  return axios.post(`http://localhost:8090/resources/${id}/reviews/${hash}`, review)
+}
