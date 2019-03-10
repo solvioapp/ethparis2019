@@ -8,14 +8,11 @@ export class AddReview extends Component {
         super(props)
     
         this.state = {
-            topic: 'Hello',
+            topic: '',
             quality: '',
             length: '',
             content: '',
-            dependencies: [{
-                topic: '',
-                weight: ''
-            }]
+            dependencies: []
         }
     }
 
@@ -63,6 +60,30 @@ export class AddReview extends Component {
         }))
     }
 
+    onTopicChange(event) {
+        this.setState({
+            topic: event.target.value
+        })
+    }
+
+    onQualityChange(event) {
+        this.setState({
+            quality: event.target.value
+        })
+    }
+
+    onLengthChange(event) {
+        this.setState({
+            length: event.target.value
+        })
+    }
+
+    onContentChange(event) {
+        this.setState({
+            content: event.target.value
+        })
+    }
+
     async submit() {
         // Call metamask
         // If successful:
@@ -77,17 +98,17 @@ export class AddReview extends Component {
                     <div className="form-field">
                         <h3>Topic</h3>
                         <p>Which topic does the resource address?</p>
-                        <Input className="form-textbox"/>
+                        <Input className="form-textbox" value={this.state.topic} onChange={this.onTopicChange.bind(this)}/>
                     </div>
                     <div className="form-field">
                         <h3>Quality</h3>
                         <p>Number between 1 and 100</p>
-                        <Input className="form-textbox"/>
+                        <Input className="form-textbox" value={this.state.quality} onChange={this.onQualityChange.bind(this)}/>
                     </div>
                     <div className="form-field">
                         <h3>Length</h3>
                         <p>Time you spent studying the resource in minutes</p>
-                        <Input className="form-textbox"/>
+                        <Input className="form-textbox" value={this.state.length} onChange={this.onLengthChange.bind(this)}/>
                     </div>
                     <div className="form-field">
                         <h3>Dependencies</h3>
@@ -114,10 +135,10 @@ export class AddReview extends Component {
                     <div className="form-field">
                         <h3>Review</h3>
                         <p>Write a review for the resource in a human language. Take your time! This will be used to check if your review is real 🤘🏾</p>
-                        <Input className="form-textbox"/>
+                        <Input className="form-textbox" value={this.state.content} onChange={this.onContentChange.bind(this)}/>
                     </div>
                     <div className="form-submit">
-                        <button className="btn-submit" onClick={this.submit}> Submit </button>
+                        <button className="btn-submit" onClick={this.submit.bind(this)}> Submit </button>
                     </div>
                 </div>
             </div>
