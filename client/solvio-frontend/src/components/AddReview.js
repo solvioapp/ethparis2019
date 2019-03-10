@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import Input from '@material-ui/core/Input';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 
-import { submitReview, submit } from '../apifunctions'
+import { submitReview } from '../apifunctions'
 
 import web3 from 'web3'
 import sha256 from 'js-sha256'
 
 const reviewControllerAbi = require('./ReviewController').abi
-const reviewControllerAddress = '0xaB3F66C8C39e0DE9db45400EEDe08237FCBdA779'
+const reviewControllerAddress = '0xcda376b1d49cec896778b7099fb7754bc4bc883f'
 
 export class AddReview extends Component {
     constructor(props){

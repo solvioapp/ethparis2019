@@ -2,7 +2,33 @@ import React, { Component } from 'react';
 
 import '../styles/Resource.scss'
 
+import web3 from 'web3'
+
+import { challengeReview } from '../apifunctions'
+
+const reviewControllerAbi = require('./ReviewController').abi
+const reviewControllerAddress = '0xcda376b1d49cec896778b7099fb7754bc4bc883f'
+
 export class Review extends Component {
+
+    challenge() {
+        const { web3 } = window
+        const { data }  = this.props
+
+        console.log('window.web3', web3)
+        console.log('web3', web3)
+
+        const account = web3.eth.accounts[0]
+        const reviewController = web3.eth.contract(reviewControllerAbi).at(reviewControllerAddress)
+        reviewController
+            .challenge(data.id, {
+                from: account,
+                value: web3.toWei(0.02)
+            }, (res) => {
+                console.log('res', res)
+            })
+    }
+
     render() {
         const { data } = this.props
 
@@ -43,16 +69,24 @@ export class Review extends Component {
                         </div>
                     </div>
                     <div className="bottom">
-                        <p className="title-dep">Dependencies</p>
-                        <span className="row">
-                            <p>Topic</p>
-                            <p>Weight</p>
-                        </span>
+                        {data.dependencies.length > 0 ? (
+                            <div>
+                                <p className="title-dep"><strong>Dependencies</strong></p>
+                                <span className="row">
+                                    <p className="dependencies">Topic</p>
+                                    <p className="dependencies">Weight</p>
+                                </span>
+                            </div>
+                        ): null}
+                        
                         {data.dependencies.map((dep) => (
-                            <span className="row">
-                                <p className="dependencies">{dep.topic}</p>
-                                <p className="dependencies">{dep.weight}</p>
-                            </span>
+                            <div>
+                                <span className="row">
+                                    <p className="dependencies">{dep.topic}</p>
+                                    <p className="dependencies">{dep.weight}</p>
+                                </span>
+                                <button className="btn btn-challenge" onClick={this.challenge.bind(this)}>Challenge</button>
+                            </div>
                         ))}
                     </div>
                 </div>

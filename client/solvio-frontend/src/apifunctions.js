@@ -4,11 +4,14 @@ import sha256 from 'js-sha256'
 
 const MIN_SEARCH_CHARS = 2
 
+const API_HOST = 'http://localhost:8090'
+//const API_HOST = 'http://178.62.16.66:8090'
+
 export async function searchRequest(query){
   const requestIsUrl = statfunctions.validURL(query)
 
   if(requestIsUrl) {
-  return axios.get('http://localhost:8090/resources/'+sha256(query))
+  return axios.get(API_HOST + '/resources/'+sha256(query))
     .catch(function (error) {
       return "empty"
     })
@@ -26,7 +29,7 @@ export async function searchRequest(query){
     });
   } else if(query.length > MIN_SEARCH_CHARS) {
     // Make a request for a user with a given ID
-    return axios.get('http://localhost:8090/search?q='+query)
+    return axios.get(API_HOST + '/search?q='+query)
       .catch(function (error) {
         console.log(error);
         return ""
@@ -43,7 +46,7 @@ export async function searchRequest(query){
 }
 
 export async function getTopic(topic_id){
-  const endpoint = 'http://localhost:8090/topics/'+topic_id+'/resources'
+  const endpoint = API_HOST + '/topics/'+topic_id+'/resources'
   console.log(endpoint)
   return axios.get(endpoint)
     .catch(function (error) {
@@ -60,7 +63,7 @@ export async function getTopic(topic_id){
 }
 
 export async function getReviews(resource_id){
-  const endpoint = 'http://localhost:8090/resources/'+resource_id
+  const endpoint = API_HOST + '/resources/'+resource_id
   console.log(endpoint)
   return axios.get(endpoint)
     .catch(function (error) {
@@ -78,7 +81,7 @@ export async function getReviews(resource_id){
 
 export async function addResource(resource){
   console.log(resource)
-  const endpoint = 'http://localhost:8090/resources'
+  const endpoint = API_HOST + '/resources'
   return axios.post(endpoint, resource)
   .catch((error) => console.log(error))
   .then((res) => {
@@ -91,11 +94,11 @@ export async function addResource(resource){
 }
 
 export async function submitReview(id, hash, review) {
-  return axios.post(`http://localhost:8090/resources/${id}/reviews/${hash}`, review)
+  return axios.post(API_HOST + `/resources/${id}/reviews/${hash}`, review)
 }
 
 export async function getLearningPath(topic_id){
-  const endpoint = 'http://localhost:8090/topics/'+topic_id+'/learning_paths?length=100'
+  const endpoint = API_HOST + '/topics/'+topic_id+'/learning_paths?length=100'
   return axios.get(endpoint)
     .catch(function (error) {
       console.log(error)

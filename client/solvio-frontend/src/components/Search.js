@@ -28,6 +28,7 @@ export class Search extends React.Component {
           <div id="Search">
 ´                <div className="search_wrapper">
                   <input className="input"
+                      autocomplete="false"
                       id="SearchBox"
                       placeholder="Solvio for ..."
                       value={this.state.query}

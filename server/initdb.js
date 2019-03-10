@@ -12,6 +12,7 @@ db.createTopic(gun, 'K-EVM')
 db.createTopic(gun, 'Formal verification of smart contracts using K')
 db.createTopic(gun, 'proof of stake')
 db.createTopic(gun, 'Ethereum')
+db.createTopic(gun, 'Algebra')
 
 db.addResource2Topic(gun, 'cryptocurrencies', 'Bitcoin Whitepaper', 'https://bitcoin.org/bitcoin.pdf');
 db.addResource2Topic(gun, 'K', 'K Tutorial', 'https://github.com/kframework/k/tree/master/k-distribution/tutorial/')
@@ -22,6 +23,7 @@ db.addResource2Topic(gun, 'public key cryptography', 'Asymmetric Cryptography an
 db.addResource2Topic(gun, 'Ethereum', 'A Next-Generation Smart Contract and Decentralized Application Platform', 'https://github.com/ethereum/wiki/wiki/White-Paper')
 db.addResource2Topic(gun, 'merkle tree', 'Blockchain Fundamentals #1: What is a Merkle Tree?', 'https://medium.com/byzantine-studio/blockchain-fundamentals-what-is-a-merkle-tree-d44c529391d7')
 db.addResource2Topic(gun, 'merkle tree', 'Merkling in Ethereum', 'https://blog.ethereum.org/2015/11/15/merkling-in-ethereum/')
+db.addResource2Topic(gun, 'algebra', 'Linear Algebra Done Right', 'https://www.amazon.com/dp/0387982582')
 
 let bitcoinResourceId = db.hash('https://bitcoin.org/bitcoin.pdf')
 
@@ -51,7 +53,12 @@ db.addReview2Resource(gun, 1338,bitcoinResourceId, 8, 90, [
 	}
 ], 'ETH giveaway');
 
-db.addReview2Resource(gun, 1339, db.hash('https://www.coursera.org/learn/asymmetric-crypto'), 8, 120, [], 'This is quite a good course')
+db.addReview2Resource(gun, 1339, db.hash('https://www.coursera.org/learn/asymmetric-crypto'), 8, 120, [
+        {
+                topic: 'algebra',
+                weight: 8
+        }
+], 'This is quite a good course')
 
 db.addReview2Resource(gun, 1400, db.hash('https://github.com/ethereum/wiki/wiki/White-Paper'), 7, 100, [
 	{
@@ -63,6 +70,8 @@ db.addReview2Resource(gun, 1400, db.hash('https://github.com/ethereum/wiki/wiki/
 		weight: 6
 	}
 ], 'An introductory paper to Ethereum, introduced before launch, which is maintained.')
+
+db.addReview2Resource(gun, 14605, db.hash('https://www.amazon.com/dp/0387982582'), 14, 10000, [], 'Best book ever if you enjoy banging your head against a wall for hours.')
 
 db.addReview2Resource(gun, 14001, db.hash('https://medium.com/byzantine-studio/blockchain-fundamentals-what-is-a-merkle-tree-d44c529391d7'), 5, 20, [], 'A good intro to Merkle trees')
 
