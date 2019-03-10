@@ -24,7 +24,7 @@ export class Path extends Component {
     render() {
         var { setResource } = this.props
         var paths = this.state.resources
-        const path = (paths.length > 0) ? paths[0] : []
+        const path = (paths.length > 0) ? paths[paths.length - 1] : []
 
         return (
             <div>
