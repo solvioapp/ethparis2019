@@ -13,7 +13,7 @@ const reviewControllerAddress = '0xaB3F66C8C39e0DE9db45400EEDe08237FCBdA779'
 export class AddReview extends Component {
     constructor(props){
         super(props)
-    
+
         this.state = {
             topic: '',
             quality: '',
@@ -98,11 +98,11 @@ export class AddReview extends Component {
 
         console.log('window.web3', web3)
         console.log('web3', web3)
-        
+
         const account = web3.eth.accounts[0]
         const reviewController = web3.eth.contract(reviewControllerAbi).at(reviewControllerAddress)
         reviewController
-            .submit(hash, { 
+            .submit(hash, {
                 from: account,
                 value: web3.toWei(0.02)
             }, (res) => {
@@ -136,18 +136,18 @@ export class AddReview extends Component {
                         {this.state.dependencies.map((dependency, i) => {
                             return (
                                 <div class="flex" key={i}>
-                                    <Input className="form-textbox form-textbox-dep-topic" 
-                                        placeholder="Topic" 
+                                    <Input className="form-textbox form-textbox-dep-topic"
+                                        placeholder="Topic"
                                         value={dependency.topic}
                                         onChange={this.onDependencyTopicChange.bind(this, i)} />
-                                    <Input className="form-textbox form-textbox-dep-weight" 
-                                        placeholder="Weight" 
+                                    <Input className="form-textbox form-textbox-dep-weight"
+                                        placeholder="Weight"
                                         value={dependency.weight}
                                         onChange={this.onDependencyWeightChange.bind(this, i)} />
                                     <button onClick={this.removeDependency.bind(this, i)}> Remove </button>
                                 </div>
                             )
-                        })}                        
+                        })}
                         <div className="form-submit">
                             <button onClick={this.addDependency.bind(this)}> Add </button>
                         </div>

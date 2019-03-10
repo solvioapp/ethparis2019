@@ -13,7 +13,7 @@ export class Dropdown extends Component {
     console.log("results")
 
     console.log(results)
-    var title_query = this.props.query
+    var title_query = this.props.query.toLowerCase().trim()
 
     const isUrl = statfunctions.validURL(title_query)
     const isUrlNonExistent = (results == "empty")
