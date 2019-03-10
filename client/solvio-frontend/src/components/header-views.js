@@ -45,7 +45,7 @@ export const MenuView = ( { links, register, login } )  =>  {
 export const HeaderView =  ( { id, title } )  => (
 	<div id = { id } className = "valign" >
 		<a href = "/" id = "logo">
-			<h1 class="logo">Solvio</h1>
+			<h1 className="logo">Solvio</h1>
 		</a>
 		<Link to="/">
 			<h3 id = "main-title" className="depth" >

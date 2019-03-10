@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import Input from '@material-ui/core/Input';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 
 import { submitReview, submit } from '../apifunctions'
+
+import web3 from 'web3'
+import sha256 from 'js-sha256'
+
+const reviewControllerAbi = require('./ReviewController').abi
+const reviewControllerAddress = '0xaB3F66C8C39e0DE9db45400EEDe08237FCBdA779'
 
 export class AddReview extends Component {
     constructor(props){
@@ -85,10 +92,23 @@ export class AddReview extends Component {
     }
 
     async submit() {
-        // Call metamask
-        // If successful:
-        await submitReview(this.props.id, this.state)
-        this.props.history.push('/')
+        const { web3 } = window
+        const review = this.state
+        const hash = sha256(JSON.stringify(review) + new Date())
+
+        console.log('window.web3', web3)
+        console.log('web3', web3)
+        
+        const account = web3.eth.accounts[0]
+        const reviewController = web3.eth.contract(reviewControllerAbi).at(reviewControllerAddress)
+        reviewController
+            .submit(hash, { 
+                from: account,
+                value: web3.toWei(0.02)
+            }, (res) => {
+                console.log('res', res)
+            })
+        await submitReview(this.props.id, hash, review)
     }
 
     render() {
@@ -138,7 +158,9 @@ export class AddReview extends Component {
                         <Input className="form-textbox" value={this.state.content} onChange={this.onContentChange.bind(this)}/>
                     </div>
                     <div className="form-submit">
-                        <button className="btn-submit" onClick={this.submit.bind(this)}> Submit </button>
+                        <Link to='/'>
+                            <button className="btn-submit" onClick={this.submit.bind(this)}> Submit </button>
+                        </Link>
                     </div>
                 </div>
             </div>
