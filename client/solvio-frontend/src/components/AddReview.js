@@ -109,6 +109,8 @@ export class AddReview extends Component {
                 console.log('res', res)
             })
         await submitReview(this.props.location.params.id, hash, review)
+        const link = "/resource/"+this.props.location.params.id+"/reviews"
+        this.props.history.push(link)
     }
 
     render() {
@@ -159,9 +161,7 @@ export class AddReview extends Component {
                         <Input className="form-textbox" value={this.state.content} onChange={this.onContentChange.bind(this)}/>
                     </div>
                     <div className="form-submit">
-                        <Link to='/'>
-                            <button className="btn-submit" onClick={this.submit.bind(this)}> Submit </button>
-                        </Link>
+                        <button className="btn-submit" onClick={this.submit.bind(this)}> Submit </button>
                     </div>
                 </div>
             </div>

@@ -37,7 +37,7 @@ export class Dropdown extends Component {
             <label className="option">
               <span className="dropdown-title animated fadeIn">
               <span className="label-bordered">
-              <i class="fas fa-pen-square"></i> Add Review</span>
+              <i class="fas fa-pen-square"></i> Inspect Resource</span>
                {" " + results.title}</span>
             </label>
           </Link>
@@ -46,7 +46,7 @@ export class Dropdown extends Component {
     } else if(results.topics !== undefined){
       const isTopicNonExistent = results.topics.length == 0
       if(isTopicNonExistent) {
-        const link = "/addTopic/"+title_query
+        const link = "/resource/tp_"+title_query+"/addResource"
         return (
           <Link to={link}>
             <label className="option">
@@ -80,7 +80,7 @@ export class Dropdown extends Component {
            <label className="option">
            <span className="dropdown-title animated fadeIn">
            <span className="label-bordered">
-             <i class={faicon}></i> {(result.type == "topic") ? "Learn" : "Add Review" }
+             <i class={faicon}></i> {(result.type == "topic") ? "Learn" : "Inspect Resource" }
              </span>
            &nbsp;{title_split[0]}<span style={{fontWeight:"bold"}}>{title_query}</span>{title_split[1]}
            </span>

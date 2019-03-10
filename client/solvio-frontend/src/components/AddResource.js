@@ -6,10 +6,18 @@ export class AddResource extends Component {
     constructor(props){
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this);
+        var params_id = props.location.params.id
+        var topic = ""
+        var resource_id = ""
+        if(params_id.substring(0,3) == "tp_"){
+          topic = params_id.substring(3)
+        } else {
+          resource_id = atob(params_id)
+        }
         this.state = {
-          url: atob(props.location.params.id),
+          url: resource_id,
           title: "",
-          topic: ""
+          topic: topic
         }
     }
 
@@ -23,7 +31,8 @@ export class AddResource extends Component {
       console.log(this.state)
       const result = await API.addResource(this.state)
       alert("Added Resource: "+result.id)
-      this.props.history.push("/")
+      const link = "/resource/"+result.id+"/reviews"
+      this.props.history.push(link)
     }
 
     render() {

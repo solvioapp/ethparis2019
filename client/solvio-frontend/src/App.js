@@ -87,10 +87,11 @@ class App extends React.Component {
 						</header>
 						<div className="container">
 							<Route path="/" exact render={props => <SearchView results={this.state.results} updateQuery={(query) => this.updateQuery(query)} />} />
-							<Route path="/resource/:id/addReview" render={({match}) => (
+							<Route path="/resource/:id/addReview" render={({match, history}) => (
 								<AddReview
 									id={this.state.resource.id}
 									location={match}
+									history={history}
 									resourceID={this.state.resource.id}
 									submitReview={this.submitReview}
 								/>
