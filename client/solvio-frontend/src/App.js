@@ -131,7 +131,7 @@ class App extends React.Component {
 								/>
 							)}/>
 
-							<Route path="/more-info" render={() => (
+							<Route path="/about" render={() => (
 								<MoreInfo />
 							)}/>
 						</div>
